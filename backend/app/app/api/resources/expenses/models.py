@@ -6,4 +6,4 @@ class CRUDExpense(CRUDBase[Expense]):
     ...
 
 
-expense = CRUDExpense(Expense)
+expense_model = CRUDExpense(Expense)
