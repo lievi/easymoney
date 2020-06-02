@@ -4,31 +4,38 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.api import deps
-from app import crud, schemas
+
+# from app import crud, schemas
 from .exeptions import ExpenseNotFoundExeption
+
 # FIX: Sera?
 from .models import expense_model
+from adapters import expenses as expense_adapters
+from use_cases import expenses_use_case
+from repositories.sqlalchemy.expense_repository import ExpenseRepository
 
 router = APIRouter()
 
 
-@router.post("/", response_model=schemas.Expense)
+@router.post("/", response_model=expense_adapters.Expense)
 def create_expense(
     *,
     db: Session = Depends(deps.get_db),
-    expense_in: schemas.ExpenseCreate
+    expense_in: expense_adapters.ExpenseCreate,
 ) -> Any:
-    expense = expense_model.create(db=db, obj_in=expense_in)
+    # expense = expense_model.create(db=db, obj_in=expense_in)
+    # return expense
+    repository = ExpenseRepository(db)
+    uc = expenses_use_case.CreateExpense(repository)
+    uc.execute(
+        name=expense_in.name,
+        value=expense_in.value,
+        description=expense_in.description,
+    )
 
-    return expense
 
-
-@router.get("/{id}", response_model=schemas.Expense)
-def get_expense(
-    *,
-    db: Session = Depends(deps.get_db),
-    id: int
-) -> Any:
+@router.get("/{id}", response_model=expense_adapters.Expense)
+def get_expense(*, db: Session = Depends(deps.get_db), id: int) -> Any:
     expense = expense_model.get(db, id)
 
     if not expense:

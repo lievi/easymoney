@@ -5,6 +5,7 @@ from entities.expenses import Expense
 from interfaces.repositories.expense_repository import (
     AbstractExpenseRepository,
 )
+from adapters.expenses import Expense as ExpenseAdapter
 
 
 class ExpenseRepository(AbstractExpenseRepository):
@@ -13,8 +14,12 @@ class ExpenseRepository(AbstractExpenseRepository):
 
     def create_expense(self, expense: Expense) -> None:
         obj_in_data = jsonable_encoder(expense)
-        db_obj = self.model(**obj_in_data)
+        import ipdb; ipdb.set_trace()
+        db_obj = ExpenseAdapter(**obj_in_data)
         self.db.add(db_obj)
         self.db.commit()
         self.db.refresh(db_obj)
         return db_obj
+
+    def get_expense_by_id(self, id):
+        pass

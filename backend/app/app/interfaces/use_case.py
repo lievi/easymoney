@@ -1,11 +1,13 @@
 # Verify if put it here
 from abc import ABC, abstractmethod
-from interfaces.repository import AbstractRepository
+from interfaces.repositories.expense_repository import (
+    AbstractExpenseRepository,
+)
 
 
 class AbstractUseCase(ABC):
     @abstractmethod
-    def __init__(self, repository: AbstractRepository):
+    def __init__(self, repository: AbstractExpenseRepository):
         raise NotImplementedError
 
     @abstractmethod
