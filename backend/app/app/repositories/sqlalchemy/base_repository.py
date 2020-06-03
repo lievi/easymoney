@@ -9,7 +9,7 @@
 # from app.db.base_class import Base
 
 # # Create a generic model that can be any model based on the `Base` class
-# ModelType = TypeVar("ModelTyoe", bound=Base)
+# ModelType = TypeVar("ModelType", bound=Base)
 # CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
 
 

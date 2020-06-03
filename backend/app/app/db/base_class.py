@@ -1,3 +1,4 @@
+# TODO: Verify if make sense this base class stay here in the DB folder
 from typing import Any
 
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
