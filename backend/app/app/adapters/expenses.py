@@ -13,6 +13,8 @@ class Expense(ExpenseBase):
     id: int
 
     class Config:
+        # This work with normal classes
+        # TODO: Verify how to use them
         orm_mode = True
 
 

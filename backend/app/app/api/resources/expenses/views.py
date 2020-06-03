@@ -9,7 +9,7 @@ from app.api import deps
 from .exeptions import ExpenseNotFoundExeption
 
 # FIX: Sera?
-from .models import expense_model
+# from .models import expense_model
 from adapters import expenses as expense_adapters
 from use_cases import expenses_use_case
 from repositories.sqlalchemy.expense_repository import ExpenseRepository
@@ -27,11 +27,8 @@ def create_expense(
     # return expense
     repository = ExpenseRepository(db)
     uc = expenses_use_case.CreateExpense(repository)
-    uc.execute(
-        name=expense_in.name,
-        value=expense_in.value,
-        description=expense_in.description,
-    )
+    print(expense_in.dict())
+    uc.execute(**expense_in.dict())
 
 
 @router.get("/{id}", response_model=expense_adapters.Expense)
