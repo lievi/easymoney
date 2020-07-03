@@ -7,19 +7,16 @@ from infrastructure.api import dependencies
 
 # from app import crud, schemas
 from .exeptions import ExpenseNotFoundExeption
-
 from .schemas import Expense, ExpenseCreate
 from use_cases import expenses_use_case
-from infrastructure.repositories.expense_repository import ExpenseRepository
+from infrastructure.db.repositories.expense_repository import ExpenseRepository
 
 router = APIRouter()
 
 
 @router.post("/", response_model=Expense)
 def create_expense(
-    *,
-    db: Session = Depends(dependencies.get_db),
-    expense_in: ExpenseCreate,
+    *, db: Session = Depends(dependencies.get_db), expense_in: ExpenseCreate,
 ) -> Any:
     repository = ExpenseRepository(db)
     use_case = expenses_use_case.CreateExpense(repository)
