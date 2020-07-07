@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Dict, Optional
 from entities.expenses import Expense
 
 from interfaces.repositories.expense_repository import (
@@ -12,9 +12,12 @@ class CreateExpense(AbstractExpenseUseCase):
     def __init__(self, repository: AbstractExpenseRepository) -> None:
         self.repository = repository
 
-    def execute(self, expense: Expense) -> None:
+    # TODO: Put the parameters here instead of the Dict
+    # TODO: Verify if make sense tranform here or on the view
+    def execute(self, expense: Dict) -> None:
         # Put some business logic here
-        self.repository.create_expense(expense)
+        new_expense = Expense.from_dict(expense)
+        self.repository.create_expense(new_expense)
 
 
 class GetExpenseById(AbstractExpenseUseCase):

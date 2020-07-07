@@ -1,9 +1,10 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional, Dict
 
 
 @dataclass(frozen=True)
 class Expense:
+    id: int = field(init=False)
     name: str
     value: float
     description: Optional[str] = None
