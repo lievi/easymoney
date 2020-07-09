@@ -3,20 +3,20 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class ExpenseBase(BaseModel):
+class ExpenseBaseSchema(BaseModel):
     name: str
     description: Optional[str] = None
     value: float
 
 
-class Expense(ExpenseBase):
+class ExpenseSchema(ExpenseBaseSchema):
     id: int
 
     class Config:
         # This work with normal classes
-        # TODO: Verify how to use them
+        # TODO: Verify how to use them to use with the Entity
         orm_mode = True
 
 
-class ExpenseCreate(ExpenseBase):
+class ExpenseCreateSchema(ExpenseBaseSchema):
     ...

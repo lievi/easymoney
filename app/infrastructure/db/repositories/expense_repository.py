@@ -1,38 +1,31 @@
-# TODO implement typing
 from typing import Any
-from fastapi.encoders import jsonable_encoder
+
 from sqlalchemy.orm import Session
 
-from adapters.expenses import db_model_to_entity
 from entities.expenses import Expense as Expense
+from infrastructure.db.adapters.expenses import ExpenseDBAdapter
+from infrastructure.db.models.expense import Expense as ExpenseModel
 from interfaces.repositories.expense_repository import (
     AbstractExpenseRepository,
 )
-from infrastructure.db.models.expense import Expense as ExpenseDB
 
 
 class ExpenseRepository(AbstractExpenseRepository):
     def __init__(self, db: Session):
         self.db = db
-        self.expense_model = ExpenseDB
 
     def create_expense(self, expense: Expense) -> None:
-        # creating an json with the entity
-        obj_in_data = jsonable_encoder(expense)
+        expense_model = ExpenseDBAdapter.from_entity(expense)
 
-        # Instantiating the base sqlalquemy class
-        db_obj = ExpenseDB(**obj_in_data)
-
-        # Putting into the database
-        self.db.add(db_obj)
+        # Inserting into database
+        self.db.add(expense_model)
         self.db.commit()
-        self.db.refresh(db_obj)
-        return db_obj
+        self.db.refresh(expense_model)
+        return expense_model
 
     def get_expense_by_id(self, id: Any) -> Expense:
         expense_from_db = (
-            self.db.query(self.expense_model)
-            .filter(self.expense_model.id == id)
-            .first()
+            self.db.query(ExpenseModel).filter(ExpenseModel.id == id).first()
         )
-        return db_model_to_entity(expense_from_db)
+        expense = ExpenseDBAdapter.to_entity(expense_from_db)
+        return expense

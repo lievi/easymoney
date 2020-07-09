@@ -18,7 +18,9 @@ fileConfig(config.config_file_name)
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 
-from app.db.base import Base # noqa
+# I'm using a Base class to generate all the tables, so i don't need to import
+# all the models
+from app.infrastructure.db.config.base import Base # noqa
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,

@@ -4,7 +4,9 @@ from typing import Optional, Dict
 
 @dataclass(frozen=True)
 class Expense:
-    id: int = field(init=False)
+    # FIXME: Verify how to fix that
+    # id: int = field(init=False)
+    id: int
     name: str
     value: float
     description: Optional[str] = None
