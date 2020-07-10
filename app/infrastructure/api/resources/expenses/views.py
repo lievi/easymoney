@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from infrastructure.api import dependencies
-from infrastructure.db.repositories.expense_repository import ExpenseRepository
+from infrastructure.repositories.expense_repository import ExpenseRepository
 from use_cases import expenses_use_case
 
 from .exeptions import ExpenseNotFoundExeption
