@@ -2,11 +2,9 @@ from dataclasses import dataclass, field
 from typing import Optional, Dict
 
 
-@dataclass(frozen=True)
+@dataclass
 class Expense:
-    # FIXME: Verify how to fix that
-    # id: int = field(init=False)
-    id: int
+    id: int = field(init=False)
     name: str
     value: float
     description: Optional[str] = None

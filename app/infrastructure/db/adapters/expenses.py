@@ -12,9 +12,10 @@ class ExpenseDBAdapter:
 
     @staticmethod
     def to_entity(expense: ExpenseModel):
-        return Expense(
-            id=expense.id,
+        expense_entity = Expense(
             name=expense.name,
             value=expense.value,
             description=expense.description
         )
+        expense_entity.id = expense.id
+        return expense_entity
