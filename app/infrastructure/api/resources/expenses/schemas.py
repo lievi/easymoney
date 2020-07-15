@@ -3,20 +3,16 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class ExpenseBaseSchema(BaseModel):
+class ExpenseSchema(BaseModel):
     name: str
     description: Optional[str] = None
     value: float
 
-
-class ExpenseSchema(ExpenseBaseSchema):
-    id: int
-
     class Config:
-        # This work with normal classes
-        # TODO: Verify how to use them to use with the Entity
+        # Using this orm_mode, i can instantiate a new schema from an
+        # entity, using the .from_orm
         orm_mode = True
 
 
-class ExpenseCreateSchema(ExpenseBaseSchema):
-    ...
+class ExpenseOutputSchema(ExpenseSchema):
+    id: int

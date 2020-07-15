@@ -12,12 +12,9 @@ class CreateExpense(AbstractExpenseUseCase):
     def __init__(self, repository: AbstractExpenseRepository) -> None:
         self.repository = repository
 
-    # TODO: Put the parameters here instead of the Dict
-    # TODO: Verify if make sense tranform here or on the view
-    def execute(self, expense: Dict) -> None:
-        # Put some business logic here
-        new_expense = Expense.from_dict(expense)
-        self.repository.create_expense(new_expense)
+    def execute(self, expense: Expense) -> Expense:
+        saved_expense = self.repository.create_expense(expense)
+        return saved_expense
 
 
 class GetExpenseById(AbstractExpenseUseCase):

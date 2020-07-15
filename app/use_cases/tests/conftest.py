@@ -14,5 +14,15 @@ def expense_entity():
 
 
 @pytest.fixture
+def saved_expense_entity():
+    return Expense(
+        id='1',
+        name='fake expense',
+        value=2.0,
+        description='fake description'
+    )
+
+
+@pytest.fixture
 def mock_repository() -> mock.MagicMock:
     return mock.MagicMock()

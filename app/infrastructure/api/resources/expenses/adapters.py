@@ -1,6 +1,15 @@
-class ExpenseCreateAdapter:
-    def from_entity(self, expense):
-        pass
+from entities.expenses import Expense
+from .schemas import (
+    ExpenseSchema,
+    ExpenseOutputSchema
+)
 
-    def to_entity(self, expense_create):
-        pass
+
+class ExpenseAdapter:
+    @staticmethod
+    def from_entity(expense: ExpenseOutputSchema):
+        return ExpenseOutputSchema.from_orm(expense)
+
+    @staticmethod
+    def to_entity(expense_create: ExpenseSchema):
+        return Expense.from_dict(expense_create.dict())
