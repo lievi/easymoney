@@ -5,18 +5,17 @@ from entities.expenses import Expense
 
 
 @pytest.fixture
-def expense_entity():
-    return Expense(
-        name='fake expense',
-        value=2.0,
-        description='fake description'
-    )
+def expense_payload():
+    return {
+        'name': 'fake expense',
+        'value': 2.0,
+        'description': 'fake description'
+    }
 
 
 @pytest.fixture
-def saved_expense_entity():
+def expense_entity():
     return Expense(
-        id='1',
         name='fake expense',
         value=2.0,
         description='fake description'

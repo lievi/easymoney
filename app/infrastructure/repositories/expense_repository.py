@@ -14,14 +14,22 @@ class ExpenseRepository(AbstractExpenseRepository):
     def __init__(self, db: Session):
         self.db = db
 
-    def create_expense(self, expense: Expense) -> None:
+    def create_expense(self, expense: Expense) -> int:
+        """Persist the expense on the database
+
+        Args:
+            expense (Expense): The Expense entity object
+
+        Returns:
+            int: Returns the id of row on the database
+        """
         expense_model = ExpenseDBAdapter.from_entity(expense)
 
         # Inserting into database
         self.db.add(expense_model)
         self.db.commit()
         self.db.refresh(expense_model)
-        return expense_model
+        return expense_model.id
 
     def get_expense_by_id(self, id: Any) -> Expense:
         expense_from_db = (

@@ -13,8 +13,11 @@ class CreateExpense(AbstractExpenseUseCase):
         self.repository = repository
 
     def execute(self, expense: Expense) -> Expense:
-        saved_expense = self.repository.create_expense(expense)
-        return saved_expense
+        expense_id = self.repository.create_expense(expense)
+
+        # Adding the id of the saved expense on the entity
+        expense.id = expense_id
+        return expense
 
 
 class GetExpenseById(AbstractExpenseUseCase):
