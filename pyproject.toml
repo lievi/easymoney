@@ -29,6 +29,7 @@ rope = "^0.17.0"
 mock = "^4.0.2"
 coverage = "^5.2"
 pylint = "^2.5.3"
+bandit = "^1.6.2"
 
 [tool.isort]
 multi_line_output = 3

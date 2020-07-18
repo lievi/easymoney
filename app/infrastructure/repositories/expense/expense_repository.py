@@ -1,5 +1,3 @@
-from typing import Any
-
 from sqlalchemy.orm import Session
 
 from entities.expenses import Expense as Expense
@@ -31,7 +29,7 @@ class ExpenseRepository(AbstractExpenseRepository):
         self.db.refresh(expense_model)
         return expense_model.id
 
-    def get_expense_by_id(self, id: Any) -> Expense:
+    def get_expense_by_id(self, id: int) -> Expense:
         expense_from_db = (
             self.db.query(ExpenseModel).filter(ExpenseModel.id == id).first()
         )

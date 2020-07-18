@@ -2,6 +2,9 @@ import pytest
 import mock
 
 from entities.expenses import Expense
+from infrastructure.repositories.expense.fake_expense_repository import (
+    FakeExpenseRepository
+)
 
 
 @pytest.fixture
@@ -23,5 +26,5 @@ def expense_entity():
 
 
 @pytest.fixture
-def mock_repository() -> mock.MagicMock:
-    return mock.MagicMock()
+def fake_repository() -> FakeExpenseRepository:
+    return FakeExpenseRepository()
