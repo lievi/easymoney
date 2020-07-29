@@ -512,7 +512,7 @@ version = "3.0.5"
 wcwidth = "*"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "psycopg2 - Python-PostgreSQL Database Adapter"
 name = "psycopg2-binary"
 optional = false
@@ -665,7 +665,7 @@ version = "0.0.5"
 six = ">=1.4.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "YAML parser and emitter for Python"
 name = "pyyaml"
 optional = false
@@ -851,7 +851,7 @@ python-versions = "*"
 version = "1.12.1"
 
 [metadata]
-content-hash = "1d3ac29c6d9c16c9afdb99275cb4254fca43abd47cf172d7dc7df84188046762"
+content-hash = "01ebf2849e9c170d185cdbca9666beedb5ced4972e8e85360d0e35ea0c576de1"
 python-versions = "^3.8"
 
 [metadata.files]
