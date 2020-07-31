@@ -1,5 +1,5 @@
 # Define required macros here
 SHELL = /bin/sh
 
-run-dev:
+run-docker-dev:
 	docker run -p 80:80 -v $(pwd):/app easymoney:latest /start-reload.sh
