@@ -1,5 +1,5 @@
 from app.entities.expenses import Expense
-from .schemas import (
+from app.infrastructure.api.resources.expenses.schemas import (
     ExpenseSchema,
     ExpenseOutputSchema
 )
@@ -7,7 +7,7 @@ from .schemas import (
 
 class ExpenseAdapter:
     @staticmethod
-    def from_entity(expense: ExpenseOutputSchema):
+    def from_entity(expense: ExpenseOutputSchema) -> ExpenseSchema:
         return ExpenseOutputSchema.from_orm(expense)
 
     @staticmethod
