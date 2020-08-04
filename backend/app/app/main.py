@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from app.infrastructure.api.routes import api_router
 
 # Setting the logs
-# with open('logconf.yaml', 'r') as f:
+# with open('app/logconf.yaml', 'r') as f:
 #     config = yaml.safe_load(f.read())
 #     logging.config.dictConfig(config)
 

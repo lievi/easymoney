@@ -7,7 +7,7 @@ services:
         depends_on:
             - db
         volumes:
-            - ./backend:/app
+            - ./backend/app:/app
     db:
         image: postgres:latest
         ports:
