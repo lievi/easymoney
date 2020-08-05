@@ -13,8 +13,9 @@ COPY ./app/pyproject.toml ./app/poetry.lock* /app/
 
 RUN poetry install --no-root --no-dev
 
+COPY ./app /app
+
 ENV PYTHONPATH=/app
 
 # Development only
-CMD ["/start-reload.sh"]
-# COPY ./app /app
+# CMD ["/start-reload.sh"]

@@ -11,5 +11,5 @@ class ExpenseAdapter:
         return ExpenseOutputSchema.from_orm(expense)
 
     @staticmethod
-    def to_entity(expense_create: ExpenseSchema):
+    def to_entity(expense_create: ExpenseSchema) -> ExpenseOutputSchema:
         return Expense.from_dict(expense_create.dict())
