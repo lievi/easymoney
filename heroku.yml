@@ -4,4 +4,4 @@ setup:
       as: DATABASE
 build:
     docker:
-        web: backend/DockerFile
+        web: backend/Dockerfile
