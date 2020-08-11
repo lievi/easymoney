@@ -7,6 +7,8 @@ from sqlalchemy import pool
 
 from alembic import context
 
+from app.config import settings
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -22,14 +24,15 @@ fileConfig(config.config_file_name)
 
 # I'm using a Base class to generate all the tables, so i don't need to import
 # all the models
-from app.infrastructure.db.config.base_class import Base # noqa
+from app.infrastructure.db.config.base_class import Base
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
-config.set_main_option('sqlalchemy.url', os.environ.get('DATABASE_URL'))
+config.set_main_option('sqlalchemy.url', settings.DATABASE_URL)
+
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.

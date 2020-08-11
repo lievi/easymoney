@@ -1,6 +1,3 @@
-# TODO: Verify where put this sql model.
-# Inside the repository folder or on the adapter folder
-
 from sqlalchemy import Column, String, Float, Integer
 
 from app.infrastructure.db.config.base_class import Base
