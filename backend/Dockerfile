@@ -13,7 +13,7 @@ COPY ./app/pyproject.toml ./app/poetry.lock* /app/
 
 RUN poetry install --no-root --no-dev
 
-# COPY ./app /app
+COPY ./app /app
 
 ENV PYTHONPATH=/app
 

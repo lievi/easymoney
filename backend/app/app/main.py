@@ -2,7 +2,7 @@ import logging
 import os
 import yaml
 
-# import uvicorn  # debug only
+
 from fastapi import FastAPI
 
 from app.infrastructure.api.routes import api_router
@@ -22,6 +22,3 @@ app.include_router(
 
 # logger.info('Starting the app')
 
-# Debug Mode
-# if __name__ == "__main__":
-#     uvicorn.run(app, host="0.0.0.0", port=8000)
