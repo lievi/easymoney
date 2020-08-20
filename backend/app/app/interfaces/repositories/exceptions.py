@@ -13,3 +13,8 @@ class RepositoryTimeoutException(RepositoryException):
         self, message="Timeout Error when accessing the repository"
     ) -> None:
         super().__init__(message)
+
+
+class IdNotFoundException(RepositoryException):
+    def __init__(self, message: str = "Id not found on expense") -> None:
+        super().__init__(message)

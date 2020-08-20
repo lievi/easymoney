@@ -1,2 +1,5 @@
 [run]
 include = app/*
+
+[report]
+show_missing = True
