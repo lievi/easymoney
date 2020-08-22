@@ -1,4 +1,3 @@
-from typing import Dict, Optional
 from app.entities.expenses import Expense
 
 from app.interfaces.repositories.expense_repository import (

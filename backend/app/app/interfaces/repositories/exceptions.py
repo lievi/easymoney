@@ -1,5 +1,7 @@
 class RepositoryException(Exception):
-    def __init__(self, message="Unexpected error on repository") -> None:
+    def __init__(
+        self, message: str = "Unexpected error on repository"
+    ) -> None:
         self.message = message
 
         super().__init__(self.message)
@@ -10,7 +12,7 @@ class RepositoryException(Exception):
 
 class RepositoryTimeoutException(RepositoryException):
     def __init__(
-        self, message="Timeout Error when accessing the repository"
+        self, message: str = ("Timeout Error when accessing the repository")
     ) -> None:
         super().__init__(message)
 
