@@ -16,6 +16,7 @@ class CreateExpense(AbstractExpenseUseCase):
 
         # Adding the id of the saved expense on the entity
         expense.id = expense_id
+
         return expense
 
 
