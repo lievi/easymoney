@@ -15,6 +15,7 @@ class CreateExpense(AbstractExpenseUseCase):
         expense_id = self.repository.create_expense(expense)
 
         # Adding the id of the saved expense on the entity
+
         expense.id = expense_id
 
         return expense
