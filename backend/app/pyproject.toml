@@ -15,7 +15,7 @@ sqlalchemy = "^1"
 alembic = "^1"
 PyYAML = "^5.3.1"
 psycopg2-binary = "^2.8.5"
-newrelic = "^5"
+newrelic = "^5.22.0.151"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5"
