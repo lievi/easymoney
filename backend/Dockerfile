@@ -18,4 +18,5 @@ COPY ./app /app
 ENV PYTHONPATH=/app
 
 # Development only
-CMD ["/start-reload.sh"]
+# CMD ["start-reload.sh"]
+CMD ["NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-program /start.sh"]
