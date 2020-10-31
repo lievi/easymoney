@@ -3,12 +3,12 @@ from pydantic import BaseSettings, PostgresDsn, validator
 
 
 class Settings(BaseSettings):
-    POSTGRES_USER: str
-    POSTGRES_PASSWORD: str
-    DATABASE_SERVER: str
-    DATABASE_DB: str
     DATABASE_URL: Optional[PostgresDsn] = None
-    DATABASE_TIMEOUT: int
+    POSTGRES_USER: str = None
+    POSTGRES_PASSWORD: str = None
+    POSTGRES_DB: str = None
+    DATABASE_SERVER: str = None
+    DATABASE_TIMEOUT: int = None
 
     @validator("DATABASE_URL", pre=True)
     def create_postgres_connection_dns(
@@ -21,7 +21,7 @@ class Settings(BaseSettings):
             user=values.get('POSTGRES_USER'),
             password=values.get('POSTGRES_PASSWORD'),
             host=values.get('DATABASE_SERVER'),
-            path=f"/{values.get('DATABASE_DB') or ''}"
+            path=f"/{values.get('POSTGRES_DB') or ''}"
         )
 
     class Config:

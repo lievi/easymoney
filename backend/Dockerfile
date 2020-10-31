@@ -16,8 +16,6 @@ RUN poetry install --no-root --no-dev
 COPY ./app /app
 
 ENV PYTHONPATH=/app
-ENV NEW_RELIC_CONFIG_FILE=newrelic.ini
+# ENV NEW_RELIC_CONFIG_FILE=newrelic.ini
 
-# Development only
-# CMD ["/start-reload.sh"]
 CMD ["newrelic-admin", "run-program", "/start.sh"]

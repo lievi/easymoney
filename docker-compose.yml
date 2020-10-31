@@ -3,14 +3,18 @@ services:
     web:
         build: ./backend
         ports:
-            - "80:80"
+            - "8000:80"
         depends_on:
             - db
         volumes:
             - ./backend/app:/app
+            - .env:/app/.env
+        command: /start-reload.sh
     db:
         image: postgres:latest
         ports:
             - "5432:5432"
         volumes:
-            - ./.data:/var/lib/postgresql/data
+            - ./db-data:/var/lib/postgresql/data
+        env_file:
+            - .env
