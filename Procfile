@@ -1,0 +1,1 @@
+web: gunicorn --pythonpath=backend/app -k uvicorn.workers.UvicornWorker -c gunicorn_conf.py app.main:app
