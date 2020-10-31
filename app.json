@@ -1,0 +1,13 @@
+{
+    "stack": "container",
+    "addons": [
+        "heroku-postgresql:hobby-dev"
+    ],
+    "environments": {
+        "production": {
+            "addons": [
+                "heroku-postgresql:hobby-dev"
+            ]
+        }
+    }
+}
