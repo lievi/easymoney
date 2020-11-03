@@ -19,7 +19,7 @@ class ExpenseRepository(AbstractExpenseRepository):
             expense (Expense): The Expense entity object
 
         Returns:
-            int: Returns the id of row on the database
+            Expenss: Returns the expense on the database
         """
         expense_model = ExpenseDBAdapter.from_entity(expense)
 
@@ -27,7 +27,8 @@ class ExpenseRepository(AbstractExpenseRepository):
         self.db.add(expense_model)
         self.db.commit()
         self.db.refresh(expense_model)
-        return expense_model.id
+        expense_entity = ExpenseDBAdapter.to_entity(expense_model)
+        return expense_entity
 
     def get_expense_by_id(self, id: int) -> Expense:
         expense_from_db = (

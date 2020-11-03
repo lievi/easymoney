@@ -1,25 +1,22 @@
 from app.entities.expenses import Expense
+from app.use_cases.abstract_use_case import AbstractUseCase
 
 from app.interfaces.repositories.expense_repository import (
     AbstractExpenseRepository,
 )
-from app.interfaces.use_cases.expense_use_case import AbstractExpenseUseCase
 
 
-class CreateExpense(AbstractExpenseUseCase):
+class CreateExpense(AbstractUseCase):
     """ Creates an expense to a certain user """
     def __init__(self, repository: AbstractExpenseRepository) -> None:
         self.repository = repository
 
     def execute(self, expense: Expense) -> Expense:
-        expense_id = self.repository.create_expense(expense)
-        # Adding the id of the saved expense on the entity
-        expense.id = expense_id
-
+        expense = self.repository.create_expense(expense)
         return expense
 
 
-class GetExpenseById(AbstractExpenseUseCase):
+class GetExpenseById(AbstractUseCase):
     """ Get an Expense by id """
     def __init__(self, repository: AbstractExpenseRepository) -> None:
         self.repository = repository

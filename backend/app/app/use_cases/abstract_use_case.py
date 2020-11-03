@@ -5,11 +5,11 @@ from app.interfaces.repositories.expense_repository import (
 )
 
 
-class AbstractExpenseUseCase(ABC):
+class AbstractUseCase(ABC):
     @abstractmethod
     def __init__(self, repository: AbstractExpenseRepository):
-        raise NotImplementedError
+        ...
 
     @abstractmethod
-    def execute(self):
-        raise NotImplementedError
+    def execute(self) -> None:
+        ...

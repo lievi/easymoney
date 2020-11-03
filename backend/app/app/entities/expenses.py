@@ -12,3 +12,6 @@ class Expense:
     @classmethod
     def from_dict(cls, expense_dict: Dict):
         return cls(**expense_dict)
+
+    def to_dict(self) -> dict:
+        return self.__dict__

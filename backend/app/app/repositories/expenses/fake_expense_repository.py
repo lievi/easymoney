@@ -12,10 +12,10 @@ class FakeExpenseRepository(AbstractExpenseRepository):
         'description': 'A fake expense'
     }
 
-    def create_expense(self, expense: Expense) -> int:
-        return self.PAYLOAD['id']
+    def create_expense(self, expense: Expense) -> Expense:
+        return self.PAYLOAD
 
-    def get_expense_by_id(self, id) -> Expense:
+    def get_expense_by_id(self, id: int) -> Expense:
         fake_expense = Expense(
             name=self.PAYLOAD['name'],
             value=self.PAYLOAD['value'],

@@ -1,10 +1,9 @@
-from app.infrastructure.repositories.expense.fake_expense_repository import FakeExpenseRepository
 import pytest
 import mock
 
 from app.entities.expenses import Expense
+from app.use_cases.abstract_use_case import AbstractUseCase
 from app.use_cases.expenses_use_case import CreateExpense, GetExpenseById
-from app.interfaces.use_cases.expense_use_case import AbstractExpenseUseCase
 from app.interfaces.repositories.expense_repository import (
     AbstractExpenseRepository,
 )
@@ -18,10 +17,10 @@ class TestCreateExpenseUseCase:
     @pytest.fixture
     def create_expense_use_case(
         self, fake_repository: AbstractExpenseRepository
-    ) -> AbstractExpenseUseCase:
+    ) -> AbstractUseCase:
         return CreateExpense(fake_repository)
 
-    def test_create_expense_should_save_expense_and_return_it_with_an_id(
+    def test_create_expense_should_save_expense_and_return_it(
         self,
         expense_entity: Expense,
         fake_repository: AbstractExpenseRepository,
@@ -29,7 +28,7 @@ class TestCreateExpenseUseCase:
         use_case = CreateExpense(fake_repository)
         saved_entity = use_case.execute(expense_entity)
 
-        assert saved_entity.id == fake_repository.PAYLOAD["id"]
+        assert saved_entity == fake_repository.PAYLOAD
 
     @pytest.mark.parametrize(
         "repo_exception", [RepositoryException, RepositoryTimeoutException]
