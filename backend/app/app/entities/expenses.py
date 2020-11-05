@@ -1,17 +1,20 @@
-from dataclasses import dataclass, field
-from typing import Optional, Dict
+from typing import Optional
+
+from pydantic import BaseModel
 
 
-@dataclass
-class Expense:
-    id: int = field(init=False, repr=False)
+class ExpenseBase(BaseModel):
     name: str
-    value: float
     description: Optional[str] = None
+    value: float
 
-    @classmethod
-    def from_dict(cls, expense_dict: Dict):
-        return cls(**expense_dict)
 
-    def to_dict(self) -> dict:
-        return self.__dict__
+class ExpenseCreate(ExpenseBase):
+    pass
+
+
+class Expense(ExpenseBase):
+    id: int
+
+    class Config:
+        orm_mode = True
