@@ -1,10 +1,8 @@
-from app.entities.expenses import Expense
-from app.interfaces.repositories.expense_repository import (
-    AbstractExpenseRepository
-)
+from app.core.entities.expense import Expense, ExpenseCreate
+from app.core.ports.expenses.expense_repository import ExpenseRepository
 
 
-class FakeExpenseRepository(AbstractExpenseRepository):
+class FakeExpenseRepositoryAdapter(ExpenseRepository):
     PAYLOAD = {
         'id': 1,
         'name': 'Fake Expense',
@@ -12,16 +10,17 @@ class FakeExpenseRepository(AbstractExpenseRepository):
         'description': 'A fake expense'
     }
 
-    def create_expense(self, expense: Expense) -> Expense:
-        return self.PAYLOAD
+    def create(self, expense: ExpenseCreate) -> Expense:
+        return Expense(
+            **expense
+        )
 
     def get_expense_by_id(self, id: int) -> Expense:
         fake_expense = Expense(
+            id=self.PAYLOAD['id'],
             name=self.PAYLOAD['name'],
             value=self.PAYLOAD['value'],
             description=self.PAYLOAD['description']
         )
-
-        fake_expense.id = self.PAYLOAD['id']
 
         return fake_expense

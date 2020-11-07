@@ -2,10 +2,10 @@ from typing import Dict
 
 import pytest
 
-from app.entities.expenses import Expense
-from app.infrastructure.repositories.expense.fake_expense_repository import (
-    FakeExpenseRepository
+from app.adapters.expense.fake_expense_repository import (
+    FakeExpenseRepositoryAdapter
 )
+from app.core.entities.expense import Expense
 
 
 @pytest.fixture
@@ -27,5 +27,5 @@ def expense_entity() -> Expense:
 
 
 @pytest.fixture
-def fake_repository() -> FakeExpenseRepository:
-    return FakeExpenseRepository()
+def fake_repository() -> FakeExpenseRepositoryAdapter:
+    return FakeExpenseRepositoryAdapter()

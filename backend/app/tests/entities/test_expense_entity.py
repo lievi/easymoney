@@ -1,6 +1,7 @@
 import pytest
+from pydantic.error_wrappers import ValidationError
 
-from app.entities.expenses import Expense
+from app.core.entities.expense import Expense
 
 
 class TestExpenseEntity:
@@ -8,19 +9,22 @@ class TestExpenseEntity:
         self, expense_payload: dict
     ) -> None:
         new_expense = Expense(
+            id=expense_payload['id'],
             name=expense_payload['name'],
             value=expense_payload['value'],
             description=expense_payload['description'],
         )
 
         assert isinstance(new_expense, Expense)
-        assert new_expense.to_dict() == expense_payload
+        assert new_expense.dict() == expense_payload
 
     def test_create_expense_without_optional_attr_should_return_expense(
         self, expense_payload: dict
     ) -> None:
         new_expense = Expense(
-            name=expense_payload['name'], value=expense_payload['value'],
+            id=expense_payload['id'],
+            name=expense_payload['name'],
+            value=expense_payload['value'],
         )
 
         assert isinstance(new_expense, Expense)
@@ -30,13 +34,13 @@ class TestExpenseEntity:
     def test_create_expense_without_required_attr_should_raise_exception(
         self, expense_payload: dict
     ) -> None:
-        with pytest.raises(TypeError):
+        with pytest.raises(ValidationError):
             Expense(name=expense_payload['name'])
 
     def test_create_expense_from_dict_shoud_return_expense(
         self, expense_payload: dict
     ) -> None:
-        new_expense = Expense.from_dict(expense_payload)
+        new_expense = Expense(**expense_payload)
 
         assert isinstance(new_expense, Expense)
         assert new_expense.name == expense_payload['name']
@@ -46,7 +50,7 @@ class TestExpenseEntity:
     def test_expense_to_dict_shoud_return_dict(
         self, expense_entity: Expense
     ) -> None:
-        expense_dict = expense_entity.to_dict()
+        expense_dict = expense_entity.dict()
 
         assert isinstance(expense_dict, dict)
         assert expense_entity.name == expense_dict['name']

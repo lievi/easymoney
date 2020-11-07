@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, Float, Integer
 
-from app.infrastructure.db.config.base_class import Base
+from app.infrastructure.db.models.base import Base
 
 
 class Expense(Base):
