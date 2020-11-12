@@ -20,3 +20,4 @@ app.include_router(
 )  # TODO: include this prefix on settings.
 
 # logger.info('Starting the app')
+# TODO: Add the shutdown event to disconnect to the database

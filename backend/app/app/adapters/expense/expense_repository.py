@@ -8,5 +8,6 @@ from app.infrastructure.db.models.expense import Expense
 
 class ExpenseRepositoryAdapter(CRUDBase[Expense, ExpenseCreate]):
     ...
-    def __init__(self):
-        super().__init__(model=Expense)
+
+
+# expense_repository_adapter = ExpenseRepositoryAdapter(Expense)

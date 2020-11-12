@@ -20,6 +20,9 @@ def create_expense(
     expense: ExpenseCreate,
 ) -> Any:
     # Instantiating the repository to persist the data
+    # TODO: Verify how to change this adapter on config(maybe a factory?)
+    # TODO: clone the repository of the tiangolo and verify if the CRUD class
+    # is instantiated on every request (put a log)
     repository = ExpenseRepositoryAdapter()
 
     # Executing the use case with all the logic needed
