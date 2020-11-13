@@ -11,8 +11,8 @@ class CreateExpense(AbstractUseCase):
     def __init__(self, repository: ExpenseRepository) -> None:
         self.repository = repository
 
-    def execute(self, expense: ExpenseCreate, db) -> Expense:
-        expense = self.repository.create(db, expense)
+    def execute(self, expense: ExpenseCreate) -> Expense:
+        expense = self.repository.create(expense)
         return expense
 
 
@@ -21,5 +21,5 @@ class GetExpenseById(AbstractUseCase):
     def __init__(self, repository: ExpenseRepository) -> None:
         self.repository = repository
 
-    def execute(self, expense_id: int, db) -> Expense:
-        return self.repository.get(db, expense_id)
+    def execute(self, expense_id: int) -> Expense:
+        return self.repository.get(expense_id)

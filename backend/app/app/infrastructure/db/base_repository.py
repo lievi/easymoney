@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from app.infrastructure.db.models.base import Base
+from app.infrastructure.db.session import get_session, SessionLocal
 
 # Create a generic model that can be any model based on the `Base` class
 ModelType = TypeVar('ModelType', bound=Base)
@@ -18,15 +19,16 @@ class CRUDBase(Generic[ModelType, CreateModelType]):
         Arguments:
             model {Type[ModelType]} -- A SQLAlchemy model class
         """
-        self.model = model
+        self.model: Base = model
+        self.db: Session = get_session()
+    def get(self, id: Any) -> Optional[ModelType]:
+        print(dir(self.db))
+        return self.db.query(self.model).filter(self.model.id == id).first()
 
-    def get(self, db: Session, id: Any) -> Optional[ModelType]:
-        return db.query(self.model).filter(self.model.id == id).first()
-
-    def create(self, db: Session, *, obj_in: CreateModelType) -> ModelType:
+    def create(self, *, obj_in: CreateModelType) -> ModelType:
         obj_in_data = jsonable_encoder(obj_in)
         db_obj = self.model(**obj_in_data)
-        db.add(db_obj)
-        db.commit()
-        db.refresh(db_obj)
+        self.db.add(db_obj)
+        self.db.commit()
+        self.db.refresh(db_obj)
         return db_obj

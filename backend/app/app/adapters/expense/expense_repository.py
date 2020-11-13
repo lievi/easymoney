@@ -10,4 +10,4 @@ class ExpenseRepositoryAdapter(CRUDBase[Expense, ExpenseCreate]):
     ...
 
 
-# expense_repository_adapter = ExpenseRepositoryAdapter(Expense)
+expense_repository_adapter = ExpenseRepositoryAdapter(Expense)
