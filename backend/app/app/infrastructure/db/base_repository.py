@@ -21,6 +21,7 @@ class CRUDBase(Generic[ModelType, CreateModelType]):
         """
         self.model: Base = model
         self.db: Session = get_session()
+
     def get(self, id: Any) -> Optional[ModelType]:
         print(dir(self.db))
         return self.db.query(self.model).filter(self.model.id == id).first()
