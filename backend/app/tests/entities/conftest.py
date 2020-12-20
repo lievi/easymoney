@@ -1,6 +1,6 @@
 import pytest
 
-from app.core.entities.expense import Expense
+from app.domain.expense import Expense
 
 
 @pytest.fixture

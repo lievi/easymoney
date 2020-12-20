@@ -5,7 +5,7 @@ import pytest
 from app.adapters.expense.fake_expense_repository import (
     FakeExpenseRepositoryAdapter
 )
-from app.core.entities.expense import Expense
+from app.domain.expense import Expense
 
 
 @pytest.fixture

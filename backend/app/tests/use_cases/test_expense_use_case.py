@@ -1,7 +1,7 @@
 import pytest
 import mock
 
-from app.core.entities.expense import Expense
+from app.domain.expense import Expense
 from app.core.use_cases.abstract_use_case import AbstractUseCase
 from app.core.use_cases.expenses.expenses_use_case import (
     CreateExpense, GetExpenseById

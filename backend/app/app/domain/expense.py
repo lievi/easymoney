@@ -2,6 +2,8 @@ from typing import Optional
 
 from pydantic import BaseModel
 
+# TODO: Remove the pydantic
+
 
 class ExpenseBase(BaseModel):
     name: str
