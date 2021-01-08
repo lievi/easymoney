@@ -5,17 +5,13 @@ from pydantic import BaseModel
 # TODO: Remove the pydantic
 
 
-class ExpenseBase(BaseModel):
+class Expense(BaseModel):
     name: str
     description: Optional[str] = None
     value: float
 
 
-class ExpenseCreate(ExpenseBase):
-    pass
-
-
-class Expense(ExpenseBase):
+class ExpenseInDb(Expense):
     id: int
 
     class Config:

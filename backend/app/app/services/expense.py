@@ -5,8 +5,8 @@ from app.adapters.repositories.expense import AbstractExpenseRepository
 def create_expense(
     repository: AbstractExpenseRepository, expense: ExpenseCreate
 ) -> Expense:
-    expense = repository.create(expense)
-    return expense
+    new_expense = repository.create(expense)
+    return new_expense
 
 
 def get_by_id(

@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from .exceptions import ExpenseNotFoundExeption
 from app.adapters.repositories.expense import SqlAlchemyExpenseRepository
 from app.services import expense as service
-from app.domain.expense import Expense, ExpenseCreate
+from app.domain.expense import Expense
 from app.infrastructure.db.models.expense import Expense as ExpenseModel
 from app.infrastructure.api import dependencies
 
@@ -16,7 +16,7 @@ router = APIRouter()
 
 @router.post("/", response_model=Expense)
 def create_expense(
-    *, db: Session = Depends(dependencies.get_db), expense: ExpenseCreate,
+    *, db: Session = Depends(dependencies.get_db), expense: Expense,
 ) -> Any:
     # Instantiating the repository to persist the data
     repository = SqlAlchemyExpenseRepository(ExpenseModel, db)
