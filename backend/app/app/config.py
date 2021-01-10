@@ -3,11 +3,11 @@ from pydantic import BaseSettings, PostgresDsn, validator
 
 
 class Settings(BaseSettings):
-    POSTGRES_USER: str = None
-    POSTGRES_PASSWORD: str = None
-    POSTGRES_DB: str = None
-    DATABASE_SERVER: str = None
-    DATABASE_TIMEOUT: int = None
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_DB: str
+    DATABASE_SERVER: str
+    DATABASE_TIMEOUT: int
     DATABASE_URL: Optional[PostgresDsn] = None
 
     @validator("DATABASE_URL", pre=True)

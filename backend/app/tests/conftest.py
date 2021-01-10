@@ -9,7 +9,7 @@ from app.domain.expense import Expense, ExpenseCreate
 
 
 @pytest.fixture
-def expense_payload() -> Dict:
+def expense_create_payload() -> Dict:
     return {
         'name': 'fake expense',
         'value': 2.0,
