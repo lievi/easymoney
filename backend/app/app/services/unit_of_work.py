@@ -1,8 +1,11 @@
 from abc import ABC, abstractmethod
+from typing import Any
+
 from sqlalchemy.orm import sessionmaker, Session
 
 from app.adapters.repositories.expense import (
     AbstractExpenseRepository,
+    FakeExpenseRepository,
     SqlAlchemyExpenseRepository,
 )
 from app.infrastructure.db.session import SessionLocal
@@ -14,7 +17,7 @@ class AbstractUnitOfWork(ABC):
     def __enter__(self):
         return self
 
-    def __exit__(self, *args) -> None:
+    def __exit__(self, *args: Any) -> None:
         self.rollback()
 
     @abstractmethod
@@ -24,6 +27,16 @@ class AbstractUnitOfWork(ABC):
     @abstractmethod
     def rollback(self) -> None:
         raise NotImplementedError
+
+
+class FakeUnitOfWork(AbstractUnitOfWork):
+    expenses = FakeExpenseRepository()
+
+    def commit(self) -> None:
+        pass  # pragma: no cover
+
+    def rollback(self) -> None:
+        pass
 
 
 class SqlAlchemyUnitOfWork(AbstractUnitOfWork):
@@ -36,7 +49,7 @@ class SqlAlchemyUnitOfWork(AbstractUnitOfWork):
         self.expenses = SqlAlchemyExpenseRepository(self.session)
         super().__enter__()
 
-    def __exit__(self, *args) -> None:
+    def __exit__(self, *args: Any) -> None:
         super().__exit__(*args)
         self.session.close()
 

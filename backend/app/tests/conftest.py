@@ -34,8 +34,3 @@ def expense_create_entity() -> ExpenseCreate:
         value=2.0,
         description='fake description'
     )
-
-
-@pytest.fixture
-def fake_repository() -> AbstractExpenseRepository:
-    return FakeExpenseRepository()

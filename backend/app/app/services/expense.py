@@ -1,13 +1,14 @@
-from app.adapters.repositories.expense import AbstractExpenseRepository
 from app.domain.expense import Expense, ExpenseCreate
 from app.services.unit_of_work import AbstractUnitOfWork
 
 
 def create_expense(
-    repository: AbstractExpenseRepository, expense: ExpenseCreate
+    uow: AbstractUnitOfWork, expense: ExpenseCreate
 ) -> Expense:
-    new_expense = repository.create(expense)
-    return new_expense
+    with uow:
+        new_expense = uow.expenses.create(expense)
+        uow.commit()
+        return new_expense
 
 
 def get_by_id(

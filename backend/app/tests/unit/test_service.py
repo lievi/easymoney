@@ -1,21 +1,20 @@
 # import pytest
-# import mock
+from unittest.mock import patch
 
-from app.adapters.repositories.expense import (
-    AbstractExpenseRepository,
-    FakeExpenseRepository,
-)
 from app.domain.expense import Expense, ExpenseCreate
 from app.services.expense import create_expense, get_by_id
+from app.services.unit_of_work import AbstractUnitOfWork
 
 
 class TestExpenseService:
     def test_create_expense_should_persist_expense_and_return_it(
         self,
         expense_create_entity: ExpenseCreate,
-        fake_repository: AbstractExpenseRepository,
+        fake_uow: AbstractUnitOfWork,
     ) -> None:
-        new_entity = create_expense(fake_repository, expense_create_entity)
+        with patch.object(fake_uow, 'commit') as mock_commit:
+            new_entity = create_expense(fake_uow, expense_create_entity)
+            assert mock_commit.called
 
         assert new_entity.name == expense_create_entity.name
         assert new_entity.value == expense_create_entity.value
@@ -24,9 +23,9 @@ class TestExpenseService:
     def test_get_expense_by_id(
         self,
         expense_entity: Expense,
-        fake_repository: FakeExpenseRepository,
+        fake_uow: AbstractUnitOfWork
     ) -> None:
-        fake_repository._expenses.append(expense_entity)
-        entity = get_by_id(fake_repository, expense_entity.id)
+        fake_uow.expenses._expenses.append(expense_entity)
+        entity = get_by_id(fake_uow, expense_entity.id)
 
         assert entity == expense_entity

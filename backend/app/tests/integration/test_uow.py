@@ -1,6 +1,6 @@
 from sqlalchemy.orm import sessionmaker, Session
 
-from app.domain.expense import Expense
+from app.domain.expense import ExpenseCreate
 from app.services.unit_of_work import SqlAlchemyUnitOfWork
 
 
@@ -39,3 +39,21 @@ class TestSqlAlchemyUnitOfWork:
             assert expense.id == expected_id
             assert expense.name == expense_create_payload['name']
             assert expense.value == expense_create_payload['value']
+
+    def test_create_expense(
+        self,
+        sqlite_session_factory: sessionmaker,
+        expense_create_payload: dict,
+    ) -> None:
+        uow = SqlAlchemyUnitOfWork(sqlite_session_factory)
+        expected_id = 1
+
+        with uow:
+            new_expense = uow.expenses.create(
+                ExpenseCreate(**expense_create_payload)
+            )
+            uow.commit()
+
+            assert new_expense.id == expected_id
+            assert new_expense.name == expense_create_payload['name']
+            assert new_expense.value == expense_create_payload['value']
