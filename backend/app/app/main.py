@@ -5,6 +5,7 @@
 from fastapi import FastAPI
 
 from app.infrastructure.api.routes import api_router
+from app.config import settings
 
 # Setting the logs
 # with open('app/logconf.yaml', 'r') as f:
@@ -16,7 +17,7 @@ from app.infrastructure.api.routes import api_router
 app = FastAPI(title="Easy Money")
 
 app.include_router(
-    api_router, prefix="/api/v1"
+    api_router, prefix=settings.API_V1_STR
 )  # TODO: include this prefix on settings.
 
 # logger.info('Starting the app')

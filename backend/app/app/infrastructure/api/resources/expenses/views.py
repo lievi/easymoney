@@ -1,14 +1,11 @@
 from typing import Any
 
 from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
 
 from .exceptions import ExpenseNotFoundExeption
-from app.adapters.repositories.expense import SqlAlchemyExpenseRepository
 from app.services import expense as service
 from app.services.unit_of_work import SqlAlchemyUnitOfWork
 from app.domain.expense import Expense, ExpenseCreate
-from app.infrastructure.api import dependencies
 
 
 router = APIRouter()
@@ -16,13 +13,13 @@ router = APIRouter()
 
 @router.post("/", response_model=Expense)
 def create_expense(
-    *, db: Session = Depends(dependencies.get_db), expense: ExpenseCreate,
+    *, expense: ExpenseCreate,
 ) -> Any:
     # Instantiating the repository to persist the data
-    repository = SqlAlchemyExpenseRepository(db)
+    uow = SqlAlchemyUnitOfWork()
 
     # Executing the use case with all the logic needed
-    new_expense = service.create_expense(repository, expense)
+    new_expense = service.create_expense(uow, expense)
 
     # Returning the data
     return new_expense

@@ -28,6 +28,4 @@ class CRUDBase(Generic[ModelType, CreateModelType]):
         obj_in_data = jsonable_encoder(obj_in)
         db_obj = self.model(**obj_in_data)
         self.db.add(db_obj)
-        self.db.commit()
-        self.db.refresh(db_obj)
         return db_obj

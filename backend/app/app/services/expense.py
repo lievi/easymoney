@@ -8,7 +8,7 @@ def create_expense(
     with uow:
         new_expense = uow.expenses.create(expense)
         uow.commit()
-        return new_expense
+        return Expense.from_orm(new_expense)
 
 
 def get_by_id(

@@ -3,6 +3,10 @@ from pydantic import BaseSettings, PostgresDsn, validator
 
 
 class Settings(BaseSettings):
+    # API Config
+    API_V1_STR: str = "/api/v1"
+
+    # Postgres Config
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
