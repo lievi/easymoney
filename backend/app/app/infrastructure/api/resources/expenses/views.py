@@ -1,6 +1,6 @@
 from typing import Any
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 
 from .exceptions import ExpenseNotFoundExeption
 from app.services import expense as service

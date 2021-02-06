@@ -1,5 +1,14 @@
 # Define required macros here
 SHELL = /bin/sh
 
-run-docker-dev:
-	docker run -p 80:80 -v $(pwd):/app easymoney:latest /start-reload.sh
+up:
+	docker-compose up -d --build
+
+test:
+	$(SHELL) scripts/test.sh
+
+start-dependencies-locally:
+	docker-compose up -d db
+
+down:
+	docker-compose down -v

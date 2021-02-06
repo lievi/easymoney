@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 # Let the DB start
-# TODO: Create an script to verify the inialization of the db
-sleep 5;
+python app/verify_dependencies.py
+
 # Run migrations
 alembic upgrade head
