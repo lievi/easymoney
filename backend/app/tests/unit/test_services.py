@@ -1,4 +1,5 @@
 from unittest.mock import patch
+import pytest
 
 from app.domain.expense import Expense, ExpenseCreate
 from app.services.expense import create_expense, get_by_id
@@ -28,3 +29,9 @@ class TestExpenseService:
         entity = get_by_id(fake_uow, expense_entity.id)
 
         assert entity == expense_entity
+
+    def test_get_expense_with_nonexistent_id_should_raise_exception(
+        self,
+        fake_uow: FakeUnitOfWork
+    ) -> None:
+        with pytest.raises()

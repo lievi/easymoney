@@ -1,6 +1,8 @@
 from app.domain.expense import Expense, ExpenseCreate
 from app.services.unit_of_work import AbstractUnitOfWork
 
+from .exceptions import ExpenseNotFoundException
+
 
 def create_expense(
     uow: AbstractUnitOfWork, expense: ExpenseCreate
@@ -16,4 +18,6 @@ def get_by_id(
 ) -> Expense:
     with uow:
         db_expense = uow.expenses.get(expense_id)
+        if not db_expense:
+            raise ExpenseNotFoundException()
         return Expense.from_orm(db_expense)
