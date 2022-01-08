@@ -1,7 +1,8 @@
 from unittest.mock import patch
 import pytest
 
-from app.domain.expense import Expense, ExpenseCreate
+from app.domain.expense import ExpenseCreate
+from app.services.exceptions import ExpenseNotFound
 from app.services.expense import create_expense, get_by_id
 from app.services.unit_of_work import FakeUnitOfWork
 
@@ -12,26 +13,33 @@ class TestExpenseService:
         expense_create_entity: ExpenseCreate,
         fake_uow: FakeUnitOfWork,
     ) -> None:
-        with patch.object(fake_uow, 'commit') as mock_commit:
-            new_entity = create_expense(fake_uow, expense_create_entity)
-            assert mock_commit.called
+        create_expense(fake_uow, expense_create_entity)
 
-        assert new_entity.name == expense_create_entity.name
-        assert new_entity.value == expense_create_entity.value
-        assert new_entity.description == expense_create_entity.description
+        assert fake_uow.expenses._expenses is not None
+
+        expense = fake_uow.expenses._expenses[-1]
+
+        assert expense.name == expense_create_entity.name
+        assert expense.description == expense_create_entity.description
+        assert expense.value == expense_create_entity.value
 
     def test_get_expense_by_id(
         self,
-        expense_entity: Expense,
+        expense_create_entity: ExpenseCreate,
         fake_uow: FakeUnitOfWork
     ) -> None:
-        fake_uow.expenses._expenses.append(expense_entity)
-        entity = get_by_id(fake_uow, expense_entity.id)
+        create_expense(fake_uow, expense_create_entity)
+        expense_id = fake_uow.expenses._expenses[-1].id
 
-        assert entity == expense_entity
+        expense = get_by_id(fake_uow, expense_id)
+
+        assert expense.name == expense_create_entity.name
+        assert expense.description == expense_create_entity.description
+        assert expense.value == expense_create_entity.value
 
     def test_get_expense_with_nonexistent_id_should_raise_exception(
         self,
         fake_uow: FakeUnitOfWork
     ) -> None:
-        with pytest.raises()
+        with pytest.raises(ExpenseNotFound):
+            get_by_id(fake_uow, 999)

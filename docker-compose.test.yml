@@ -1,0 +1,9 @@
+version: "3"
+services:
+    web:
+        env_file:
+            - .env
+        command: /start.sh
+    db:
+        env_file:
+            - .env

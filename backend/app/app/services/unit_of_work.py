@@ -1,3 +1,4 @@
+from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -14,7 +15,7 @@ from app.infrastructure.db.session import SessionLocal
 class AbstractUnitOfWork(ABC):
     expenses: AbstractExpenseRepository
 
-    def __enter__(self):
+    def __enter__(self) -> None:
         return self
 
     def __exit__(self, *args: Any) -> None:
@@ -45,7 +46,6 @@ class SqlAlchemyUnitOfWork(AbstractUnitOfWork):
 
     def __enter__(self) -> None:
         self.session: Session = self.session_factory()
-        # TODO: Verify why i need to instantiate the repo on every enter
         self.expenses = SqlAlchemyExpenseRepository(self.session)
         super().__enter__()
 

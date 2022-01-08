@@ -29,7 +29,7 @@ class FakeExpenseRepository(AbstractExpenseRepository):
         return new_expense
 
     def get(self, id: int) -> Expense:
-        return next(e for e in self._expenses if e.id == id)
+        return next((e for e in self._expenses if e.id == id), None)
 
 
 class SqlAlchemyExpenseRepository(

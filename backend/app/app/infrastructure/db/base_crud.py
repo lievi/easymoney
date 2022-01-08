@@ -14,6 +14,8 @@ CreateModelType = TypeVar('CreateModelType', bound=BaseModel)
 class CRUDBase(Generic[ModelType, CreateModelType]):
     def __init__(self, model: Type[ModelType], db: Session):
         """CRUD methods to generics Models based on the `base_class`
+        This is a base implementation for the repositories, that do a base
+        CRUD on the database
 
         Arguments:
             model {Type[ModelType]} -- A SQLAlchemy model class

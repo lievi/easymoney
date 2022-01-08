@@ -6,7 +6,5 @@ router = APIRouter()
 
 @router.get("/ping")
 async def ping() -> str:
-    """
-        Heathcheck endpoint
-    """
+    """Heathcheck endpoint"""
     return "pong"
