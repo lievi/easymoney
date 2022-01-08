@@ -1,5 +1,6 @@
 from fastapi.testclient import TestClient
 
+from app.infrastructure.db.session import engine
 from app.config import settings
 from app.domain.expense import ExpenseCreate
 from app.services.expense import create_expense
@@ -11,7 +12,8 @@ class TestExpenseAPI:
         self,
         client: TestClient,
         uow: AbstractUnitOfWork,
-        expense_create_entity: ExpenseCreate
+        expense_create_entity: ExpenseCreate,
+        wait_dependencies: None # TODO: verify how improve this
     ) -> None:
         expected_expense = create_expense(uow, expense_create_entity)
 

@@ -1,3 +1,5 @@
+import logging
+
 from typing import Any
 
 from fastapi import APIRouter, Request
@@ -8,6 +10,7 @@ from app.services.unit_of_work import SqlAlchemyUnitOfWork
 from app.domain.expense import Expense, ExpenseCreate
 
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
@@ -16,7 +19,7 @@ def create_expense(
     *, expense: ExpenseCreate,
 ) -> Any:
     # Instantiating the repository to persist the data
-    uow = SqlAlchemyUnitOfWork()
+    uow = SqlAlchemyUnitOfWork() # TODO: verify how to inject this dependency
 
     # Executing the use case with all the logic needed
     new_expense = service.create_expense(uow, expense)
@@ -37,9 +40,9 @@ def get_expense(*, id: int) -> Any:
     return expense
 
 
-@router.exception_handler(ExpenseNotFound)
-def unicorn_exception_handler(request: Request, exc: ExpenseNotFound):
-    return JSONResponse(
-        status_code=418,
-        content={"message": f"Oops! {exc.name} did something. There goes a rainbow..."},
-    )
+# @router.exception_handler(ExpenseNotFound)
+# def unicorn_exception_handler(request: Request, exc: ExpenseNotFound):
+#     return JSONResponse(
+#         status_code=418,
+#         content={"message": f"Oops! {exc.name} did something. There goes a rainbow..."},
+#     )

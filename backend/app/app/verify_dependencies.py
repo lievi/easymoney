@@ -10,12 +10,12 @@ from tenacity import (
 
 from app.infrastructure.db.session import SessionLocal
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
 
 max_retries = 60 * 5
 wait_seconds = 1
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 @retry(
