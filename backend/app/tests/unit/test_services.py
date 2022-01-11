@@ -8,7 +8,7 @@ from app.services.unit_of_work import FakeUnitOfWork
 
 
 class TestExpenseService:
-    def test_create_expense_should_persist_expense_and_return_it(
+    def test_create_expense(
         self,
         expense_create_entity: ExpenseCreate,
         fake_uow: FakeUnitOfWork,

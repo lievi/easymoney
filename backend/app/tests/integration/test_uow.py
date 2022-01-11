@@ -1,7 +1,8 @@
+import pytest
 from sqlalchemy.orm import sessionmaker, Session
 
 from app.domain.expense import ExpenseCreate
-from app.services.unit_of_work import SqlAlchemyUnitOfWork
+from app.services.unit_of_work import AbstractUnitOfWork, SqlAlchemyUnitOfWork
 
 
 class TestSqlAlchemyUnitOfWork:
@@ -57,3 +58,25 @@ class TestSqlAlchemyUnitOfWork:
             assert new_expense.id == expected_id
             assert new_expense.name == expense_create_payload['name']
             assert new_expense.value == expense_create_payload['value']
+
+    def test_error_on_add_expense_should_rollback(
+        self,
+        sqlalchemy_uow: AbstractUnitOfWork,
+        expense_create_payload: dict,
+        sqlite_session_factory: sessionmaker
+    ) -> None:
+        class FakeException(Exception):
+            pass
+
+
+        with pytest.raises(FakeException):
+            with sqlalchemy_uow:
+                sqlalchemy_uow.expenses.create(
+                    ExpenseCreate(**expense_create_payload)
+                )
+                sqlalchemy_uow.commit()
+                raise FakeException()
+
+        # session = sqlite_session_factory()
+        # expenses = list(session.execute('SELECT * FROM "expense"'))
+        # assert not expenses
