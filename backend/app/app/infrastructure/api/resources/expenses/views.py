@@ -4,6 +4,7 @@ from typing import Any
 
 from fastapi import APIRouter, Request
 
+from .exceptions import ObjectNotFound
 from app.services import expense as service
 from app.services.exceptions import ExpenseNotFound
 from app.services.unit_of_work import SqlAlchemyUnitOfWork
@@ -35,14 +36,9 @@ def get_expense(*, id: int) -> Any:
     uow = SqlAlchemyUnitOfWork()
 
     # Executing the usecase
-    expense = service.get_by_id(uow, id)
+    try:
+        expense = service.get_by_id(uow, id)
+    except ExpenseNotFound as e:
+        raise ObjectNotFound
 
     return expense
-
-
-# @router.exception_handler(ExpenseNotFound)
-# def unicorn_exception_handler(request: Request, exc: ExpenseNotFound):
-#     return JSONResponse(
-#         status_code=418,
-#         content={"message": f"Oops! {exc.name} did something. There goes a rainbow..."},
-#     )

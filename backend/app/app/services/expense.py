@@ -18,5 +18,5 @@ def get_by_id(
     with uow:
         db_expense = uow.expenses.get(expense_id)
         if not db_expense:
-            raise ExpenseNotFound()
+            raise ExpenseNotFound
         return Expense.from_orm(db_expense)

@@ -4,5 +4,4 @@ class ObjectNotFound(Exception):
 
 
 class ExpenseNotFound(ObjectNotFound):
-    def __init__(self, detail: str = None) -> None:
-        self.detail = detail or 'Expense not found'
+    ...
