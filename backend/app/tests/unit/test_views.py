@@ -1,2 +1,0 @@
-class TestExpensesView:
-    def test_get_expense_with_nonexistent_id_should_raise_exception

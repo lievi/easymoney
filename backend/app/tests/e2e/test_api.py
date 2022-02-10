@@ -28,6 +28,21 @@ class TestExpenseAPI:
         assert expense['value'] == expected_expense.value
         assert expense['description'] == expected_expense.description
 
+    def test_expense_not_found(
+        self,
+        client: TestClient,
+        uow: AbstractUnitOfWork,
+        expense_create_entity: ExpenseCreate,
+        wait_dependencies: None # TODO: verify how improve this
+    ) -> None:
+        response = client.get(
+            f'{settings.API_V1_STR}/expenses/999'
+        )
+        assert response.status_code == 404
+        content = response.json()
+        content['detail'] = 'Item not found'
+
+
     def test_create_expense(
         self,
         client: TestClient,
