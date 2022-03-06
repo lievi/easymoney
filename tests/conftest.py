@@ -2,7 +2,7 @@ from typing import Dict
 
 import pytest
 
-from app.adapters.repositories.expense import (
+from app.repositories.expense import (
     AbstractExpenseRepository, FakeExpenseRepository
 )
 from app.domain.expense import Expense, ExpenseCreate

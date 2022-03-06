@@ -5,7 +5,7 @@ from typing import Any
 from fastapi import APIRouter, Request
 
 from .exceptions import ObjectNotFound
-from app.services import expense as service
+from app.services import expenses as service
 from app.services.exceptions import ExpenseNotFound
 from app.services.unit_of_work import SqlAlchemyUnitOfWork
 from app.domain.expense import Expense, ExpenseCreate

@@ -2,13 +2,13 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.infrastructure.db.models.base import Base
+from app.db.orm.base import BaseOrm
 
 
 @pytest.fixture
 def in_memory_sqlite_db():
     engine = create_engine('sqlite:///:memory:')
-    Base.metadata.create_all(engine)
+    BaseOrm.metadata.create_all(engine)
     return engine
 
 

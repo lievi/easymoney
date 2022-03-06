@@ -24,8 +24,8 @@ fileConfig(config.config_file_name)
 
 # I'm using a Base class to generate all the tables, so i don't need to import
 # all the models
-from app.infrastructure.db.models.base import Base
-target_metadata = Base.metadata
+from app.db.orm.base import BaseOrm
+target_metadata = BaseOrm.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

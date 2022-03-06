@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 from app.services.unit_of_work import SqlAlchemyUnitOfWork
 from app.main import app
 
-from app.infrastructure.db.session import engine
+from app.db.session import engine
 from app.verify_dependencies import verify_dependencies
 
 

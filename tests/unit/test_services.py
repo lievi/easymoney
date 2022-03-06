@@ -3,7 +3,7 @@ import pytest
 
 from app.domain.expense import ExpenseCreate
 from app.services.exceptions import ExpenseNotFound
-from app.services.expense import create_expense, get_by_id
+from app.services.expenses import create_expense, get_by_id
 from app.services.unit_of_work import FakeUnitOfWork
 
 

@@ -2,7 +2,7 @@ import logging
 
 from fastapi import FastAPI
 
-from app.infrastructure.api.routes import api_router
+from app.api.routes import api_router
 from app.config import settings
 
 # TODO: get the config from the yaml file

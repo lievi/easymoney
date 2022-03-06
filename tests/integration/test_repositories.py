@@ -1,5 +1,5 @@
 from sqlalchemy.orm import sessionmaker
-from app.adapters.repositories.expense import SqlAlchemyExpenseRepository
+from app.repositories.expense import SqlAlchemyExpenseRepository
 from app.domain.expense import ExpenseCreate
 
 
