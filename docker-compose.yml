@@ -3,7 +3,6 @@ services:
     web:
         container_name: web
         build:
-            context: ./app
             args:
                 INSTALL_DEV: ${INSTALL_DEV-false}
         ports:
@@ -11,7 +10,7 @@ services:
         depends_on:
             - db
         volumes:
-            - ./app:/app
+            - .:/app
     db:
         container_name: db
         image: postgres:latest

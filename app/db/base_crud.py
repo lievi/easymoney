@@ -4,10 +4,10 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from app.infrastructure.db.models.base import Base
+from app.db.orm.base import BaseOrm
 
 # Create a generic model that can be any model based on the `Base` class
-ModelType = TypeVar('ModelType', bound=Base)
+ModelType = TypeVar('ModelType', bound=BaseOrm)
 CreateModelType = TypeVar('CreateModelType', bound=BaseModel)
 
 
@@ -20,7 +20,7 @@ class CRUDBase(Generic[ModelType, CreateModelType]):
         Arguments:
             model {Type[ModelType]} -- A SQLAlchemy model class
         """
-        self.model: Base = model
+        self.model: BaseOrm = model
         self.db = db
 
     def get(self, id: Any) -> Optional[ModelType]:

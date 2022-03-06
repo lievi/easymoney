@@ -8,7 +8,7 @@ from tenacity import (
     wait_fixed,
 )
 
-from app.infrastructure.db.session import SessionLocal
+from app.db.session import SessionLocal
 
 
 max_retries = 60 * 5

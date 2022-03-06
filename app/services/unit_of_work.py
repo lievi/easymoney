@@ -4,12 +4,12 @@ from typing import Any
 
 from sqlalchemy.orm import sessionmaker, Session
 
-from app.adapters.repositories.expense import (
+from app.repositories.expense import (
     AbstractExpenseRepository,
     FakeExpenseRepository,
     SqlAlchemyExpenseRepository,
 )
-from app.infrastructure.db.session import SessionLocal
+from app.db.session import SessionLocal
 
 
 class AbstractUnitOfWork(ABC):

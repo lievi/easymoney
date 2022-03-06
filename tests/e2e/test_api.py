@@ -1,9 +1,9 @@
 from fastapi.testclient import TestClient
 
-from app.infrastructure.db.session import engine
+from app.db.session import engine
 from app.config import settings
 from app.domain.expense import ExpenseCreate
-from app.services.expense import create_expense
+from app.services.expenses import create_expense
 from app.services.unit_of_work import AbstractUnitOfWork
 
 

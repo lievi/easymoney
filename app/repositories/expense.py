@@ -4,8 +4,8 @@ from typing import Any, List
 from sqlalchemy.orm import Session
 
 from app.domain.expense import Expense, ExpenseCreate
-from app.infrastructure.db.base_crud import CRUDBase
-from app.infrastructure.db.models.expense import Expense as ExpenseModel
+from app.db.base_crud import CRUDBase
+from app.db.orm.expense import Expense as ExpenseOrm
 
 
 class AbstractExpenseRepository(ABC):
@@ -33,8 +33,8 @@ class FakeExpenseRepository(AbstractExpenseRepository):
 
 
 class SqlAlchemyExpenseRepository(
-    CRUDBase[ExpenseModel, Expense], AbstractExpenseRepository
+    CRUDBase[ExpenseOrm, Expense], AbstractExpenseRepository
 ):
     def __init__(self, db: Session):
-        super().__init__(ExpenseModel, db)
+        super().__init__(ExpenseOrm, db)
     ...

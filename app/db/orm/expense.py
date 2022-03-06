@@ -1,9 +1,9 @@
 from sqlalchemy import Column, String, Float, Integer
 
-from app.infrastructure.db.models.base import Base
+from app.db.orm.base import BaseOrm
 
 
-class Expense(Base):
+class Expense(BaseOrm):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     description = Column(String, index=True)
