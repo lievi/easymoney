@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.infrastructure.api.resources import expenses, healthcheck
+from . import expenses, healthcheck
 
 
 api_router = APIRouter()
