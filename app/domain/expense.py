@@ -1,6 +1,7 @@
 from typing import Optional
 
 from pydantic import BaseModel
+from sqlmodel import Field, SQLModel
 
 
 class ExpenseBase(BaseModel):
@@ -9,12 +10,12 @@ class ExpenseBase(BaseModel):
     value: float
 
 
-class Expense(ExpenseBase):
-    id: int
-
-    class Config:
-        orm_mode = True
-
-
 class ExpenseCreate(ExpenseBase):
     pass
+
+
+class Expense(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str
+    description: Optional[str] = None
+    value: float

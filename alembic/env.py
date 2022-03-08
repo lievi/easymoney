@@ -4,10 +4,13 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
+from sqlmodel import SQLModel
 
 from alembic import context
 
 from app.config import settings
+
+from app.domain.expense import *
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -24,8 +27,12 @@ fileConfig(config.config_file_name)
 
 # I'm using a Base class to generate all the tables, so i don't need to import
 # all the models
-from app.db.orm.base import BaseOrm
-target_metadata = BaseOrm.metadata
+# from app.db.orm.base import BaseOrm
+# target_metadata = BaseOrm.metadata
+
+# This will generate the tables based on all classes that extend the
+# SQLModel class
+target_metadata = SQLModel.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
