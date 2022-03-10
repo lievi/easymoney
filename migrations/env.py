@@ -8,10 +8,6 @@ from sqlmodel import SQLModel
 
 from alembic import context
 
-from app.config import settings
-
-from app.domain.expense import *
-
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -24,21 +20,21 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
+from app.domain.expense import Expense
 
-# I'm using a Base class to generate all the tables, so i don't need to import
-# all the models
-# from app.db.orm.base import BaseOrm
-# target_metadata = BaseOrm.metadata
-
-# This will generate the tables based on all classes that extend the
-# SQLModel class
 target_metadata = SQLModel.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
-config.set_main_option('sqlalchemy.url', settings.DATABASE_URL)
+
+def get_url():
+    user = os.getenv("POSTGRES_USER", "postgres")
+    password = os.getenv("POSTGRES_PASSWORD", "")
+    server = os.getenv("POSTGRES_SERVER", "db")
+    db = os.getenv("POSTGRES_DB", "app")
+    return f"postgresql://{user}:{password}@{server}/{db}"
 
 
 def run_migrations_offline():
@@ -53,7 +49,7 @@ def run_migrations_offline():
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    url = get_url()
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -72,8 +68,11 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
+    configuration = config.get_section(config.config_ini_section)
+    configuration["sqlalchemy.url"] = get_url()
+
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
+        configuration=configuration,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
