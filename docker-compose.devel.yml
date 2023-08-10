@@ -6,6 +6,6 @@ services:
         command: /start-reload.sh
     db:
         env_file:
-            - .env
+            - .env.db
         volumes:
             - ./db-data:/var/lib/postgresql/data

@@ -1,4 +1,5 @@
 from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy import text
 
 from app.domain.expense import ExpenseCreate
 from app.services.unit_of_work import SqlAlchemyUnitOfWork
@@ -9,7 +10,7 @@ class TestSqlAlchemyUnitOfWork:
         self, session: Session, expense_create_payload: dict
     ) -> None:
         session.execute(
-            (
+            text(
                 'INSERT INTO expense (id, name, value)'
                 'VALUES (:id, :name, :value)'
             ),

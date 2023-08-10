@@ -1,15 +1,14 @@
 import logging
-
 from typing import Any
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter
 
-from .exceptions import ObjectNotFound
+from app.domain.expense import Expense, ExpenseCreate
 from app.services import expenses as service
 from app.services.exceptions import ExpenseNotFound
 from app.services.unit_of_work import SqlAlchemyUnitOfWork
-from app.domain.expense import Expense, ExpenseCreate
 
+from .exceptions import ObjectNotFound
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -17,10 +16,11 @@ router = APIRouter()
 
 @router.post("/", response_model=Expense)
 def create_expense(
-    *, expense: ExpenseCreate,
+    *,
+    expense: ExpenseCreate,
 ) -> Any:
     # Instantiating the repository to persist the data
-    uow = SqlAlchemyUnitOfWork() # TODO: verify how to inject this dependency
+    uow = SqlAlchemyUnitOfWork()  # TODO: verify how to inject this dependency
 
     # Executing the use case with all the logic needed
     new_expense = service.create_expense(uow, expense)
@@ -38,7 +38,7 @@ def get_expense(*, id: int) -> Any:
     # Executing the usecase
     try:
         expense = service.get_by_id(uow, id)
-    except ExpenseNotFound as e:
+    except ExpenseNotFound:
         raise ObjectNotFound
 
     return expense

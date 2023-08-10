@@ -1,23 +1,20 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:latest
+FROM --platform=linux/amd64 tiangolo/uvicorn-gunicorn-fastapi:latest
 
 WORKDIR /app/
 
-# Install Poetry
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
-    cd /usr/local/bin && \
-    ln -s /opt/poetry/bin/poetry && \
-    poetry config virtualenvs.create false
+# Copy using Pipfile.lock* in case it doesn't exist yet
+COPY Pipfile Pipfile.lock* /app/
 
-# Copy using poetry.lock* in case it doesn't exist yet
-COPY pyproject.toml poetry.lock* /app/
+# Install Pipenv
+RUN pip install pipenv
 
 # Allow installing dev dependencies to run tests
 ARG INSTALL_DEV=false
-RUN bash -c "if [ $INSTALL_DEV == 'true' ] ; then poetry install --no-root ; else poetry install --no-root --no-dev ; fi"
+RUN bash -c "if [ $INSTALL_DEV == 'true' ] ; then pipenv install --system --dev ; else pipenv install --system ; fi"
 
 COPY . /app
 
 ENV PYTHONPATH=/app
 # ENV NEW_RELIC_CONFIG_FILE=newrelic.ini
 
-CMD ["newrelic-admin", "run-program", "/start.sh"]
+CMD ["bash", "/start.sh"]

@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+alembic = "*"
+sqlalchemy = "*"
+httpx = "*"
+pydantic-settings = "*"
+psycopg2-binary = "*"
+tenacity = "*"
+pytest-cov = "*"
+
+[dev-packages]
+black = "*"
+isort = "*"
+pytest = "*"
+mock = "*"
+pylint = "*"
+requests = "*"
+pytest-cov = "*"
+pytest-xdist = "*"
+
+[requires]
+python_version = "3.11"

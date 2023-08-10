@@ -5,6 +5,7 @@ services:
         build:
             args:
                 INSTALL_DEV: ${INSTALL_DEV-false}
+            dockerfile: Dockerfile
         ports:
             - "8000:80"
         depends_on:
