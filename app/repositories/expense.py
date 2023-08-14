@@ -24,7 +24,7 @@ class FakeExpenseRepository(AbstractExpenseRepository):
         self._expenses: List[Expense] = list()
 
     def create(self, expense: ExpenseCreate) -> Expense:
-        new_expense = Expense(id=1, **expense.dict())
+        new_expense = Expense(id=1, **expense.model_dump())
         self._expenses.append(new_expense)
         return new_expense
 

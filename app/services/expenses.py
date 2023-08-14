@@ -8,7 +8,7 @@ def create_expense(uow: AbstractUnitOfWork, expense: ExpenseCreate) -> Expense:
     with uow:
         new_expense = uow.expenses.create(expense)
         uow.commit()
-        return Expense.from_orm(new_expense)
+        return Expense.model_validate(new_expense)
 
 
 def get_by_id(uow: AbstractUnitOfWork, expense_id: int) -> Expense:
@@ -16,4 +16,4 @@ def get_by_id(uow: AbstractUnitOfWork, expense_id: int) -> Expense:
         db_expense = uow.expenses.get(expense_id)
         if not db_expense:
             raise ExpenseNotFound
-        return Expense.from_orm(db_expense)
+        return Expense.model_validate(db_expense)

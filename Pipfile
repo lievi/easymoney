@@ -5,13 +5,13 @@ name = "pypi"
 
 [packages]
 fastapi = "*"
-alembic = "*"
-sqlalchemy = "*"
-httpx = "*"
-pydantic-settings = "*"
-psycopg2-binary = "*"
-tenacity = "*"
-pytest-cov = "*"
+alembic = "==1.*"
+sqlalchemy = "==0.*"
+httpx = "==0.*"
+pydantic-settings = "==2.*"
+psycopg2-binary = "==2.*"
+tenacity = "==8.*"
+pydantic = "==2.*"
 
 [dev-packages]
 black = "*"
