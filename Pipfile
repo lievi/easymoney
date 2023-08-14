@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 fastapi = "*"
 alembic = "==1.*"
-sqlalchemy = "==0.*"
+sqlalchemy = ">=2.*"
 httpx = "==0.*"
 pydantic-settings = "==2.*"
 psycopg2-binary = "==2.*"
