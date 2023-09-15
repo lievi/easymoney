@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.db.orm.base import BaseOrm
+from app.db.sqlalchemy.orm.base import BaseOrm
 
 
 @pytest.fixture

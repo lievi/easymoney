@@ -1,0 +1,50 @@
+[tool.black]
+line-length = 79
+
+[tool.pyright]
+deprecateTypingAliases = true
+
+[tool.isort]
+profile = "black"
+line_length = 79
+
+[tool.poetry]
+name = "easymoney"
+version = "0.1.0"
+description = ""
+authors = ["Lievi Silva"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "*"
+alembic = "==1.*"
+httpx = "==0.*"
+psycopg2-binary = "==2.*"
+tenacity = "==8.*"
+sqlmodel = "*"
+mypy = "*"
+setuptools = "^68.1.2"
+python-dotenv = "^1.0.0"
+
+[tool.poetry.dev-dependencies]
+black = "*"
+isort = "*"
+pytest = "*"
+mock = "*"
+pylint = "*"
+requests = "*"
+pytest-cov = "*"
+pytest-xdist = "*"
+mypy = "*"
+pydantic = "*"
+pycodestyle = "*"
+
+[tool.poetry.group.dev.dependencies]
+pycodestyle = "^2.11.0"
+uvicorn = "^0.23.2"
+ipdb = "^0.13.13"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

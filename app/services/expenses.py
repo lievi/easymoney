@@ -1,19 +1,19 @@
-from app.domain.expense import Expense, ExpenseCreate
-from app.services.unit_of_work import AbstractUnitOfWork
+from app.domain.expense import Expense, ExpenseCreation 
+from app.repositories.expense import ExpensesRepository
 
 from .exceptions import ExpenseNotFound
 
 
-def create_expense(uow: AbstractUnitOfWork, expense: ExpenseCreate) -> Expense:
-    with uow:
-        new_expense = uow.expenses.create(expense)
-        uow.commit()
-        return Expense.model_validate(new_expense)
+def create_expense(
+    repository: ExpensesRepository, expense: ExpenseCreation 
+) -> Expense:
+    return repository.create(expense)
 
 
-def get_by_id(uow: AbstractUnitOfWork, expense_id: int) -> Expense:
-    with uow:
-        db_expense = uow.expenses.get(expense_id)
-        if not db_expense:
-            raise ExpenseNotFound
-        return Expense.model_validate(db_expense)
+def get_by_id(
+    repository: ExpensesRepository, expense_id: int
+) -> Expense:
+    expense = repository.get(expense_id)
+    if not expense:
+        raise ExpenseNotFound
+    return expense

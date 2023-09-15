@@ -6,12 +6,11 @@ name = "pypi"
 [packages]
 fastapi = "*"
 alembic = "==1.*"
-sqlalchemy = ">=2.*"
 httpx = "==0.*"
-pydantic-settings = "==2.*"
 psycopg2-binary = "==2.*"
 tenacity = "==8.*"
-pydantic = "==2.*"
+sqlmodel = "*"
+mypy = "*"
 
 [dev-packages]
 black = "*"
@@ -22,6 +21,12 @@ pylint = "*"
 requests = "*"
 pytest-cov = "*"
 pytest-xdist = "*"
+mypy = "*"
+pydantic = "*"
+pycodestyle = "*"
 
 [requires]
 python_version = "3.11"
+
+[pipenv]
+allow_prereleases = true

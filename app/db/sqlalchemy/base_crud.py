@@ -4,7 +4,7 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from app.db.orm.base import BaseOrm
+from .orm.base import BaseOrm
 
 # Create a generic model that can be any model based on the `Base` class
 ModelType = TypeVar('ModelType', bound=BaseOrm)

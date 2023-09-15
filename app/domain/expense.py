@@ -1,18 +1,15 @@
-from typing import Optional
-
-from pydantic import ConfigDict, BaseModel
+from pydantic import BaseModel
 
 
-class ExpenseBase(BaseModel):
+class BaseExpense(BaseModel):
     name: str
-    description: Optional[str] = None
+    description: str | None
     value: float
 
 
-class Expense(ExpenseBase):
+class Expense(BaseExpense):
     id: int
-    model_config = ConfigDict(from_attributes=True)
 
 
-class ExpenseCreate(ExpenseBase):
+class ExpenseCreation(BaseExpense):
     pass

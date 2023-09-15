@@ -15,6 +15,5 @@ RUN bash -c "if [ $INSTALL_DEV == 'true' ] ; then pipenv install --system --dev 
 COPY . /app
 
 ENV PYTHONPATH=/app
-# ENV NEW_RELIC_CONFIG_FILE=newrelic.ini
 
 CMD ["bash", "/start.sh"]
