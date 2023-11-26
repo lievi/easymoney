@@ -5,7 +5,10 @@ from fastapi import APIRouter, Depends
 from sqlmodel import Session
 
 from app.api.dependencies import db_session
-from app.repositories.expense import SqlModelExpenseRepository
+from app.repositories.expense import (
+    SqlAlchemyExpenseRepository,
+    SqlModelExpenseRepository,
+)
 from app.services import expenses as service
 from app.services.exceptions import ExpenseNotFound
 
@@ -45,6 +48,6 @@ def get_expense(
     try:
         expense = service.get_by_id(repo, id)
     except ExpenseNotFound as e:
-        raise ItemNotFound(e.detail)
+        raise ItemNotFound(e.detail) from e
     expense = ExpenseSchema(**expense.dict())
     return expense

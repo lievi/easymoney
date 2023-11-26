@@ -1,5 +1,21 @@
-[tool.black]
+[tool.ruff]
 line-length = 79
+
+[tool.ruff.lint]
+select = [
+  # pycodestyle
+  "E",
+  # Pyflakes
+  "F",
+  # pyupgrade
+  "UP",
+  # flake8-bugbear
+  "B",
+  # flake8-simplify
+  "SIM",
+  # isort
+  "I",
+]
 
 [tool.pyright]
 deprecateTypingAliases = true
@@ -7,6 +23,9 @@ deprecateTypingAliases = true
 [tool.isort]
 profile = "black"
 line_length = 79
+
+[tool.coverage.run]
+omit = ["tests/*"]
 
 [tool.poetry]
 name = "easymoney"
@@ -22,12 +41,16 @@ alembic = "==1.*"
 httpx = "==0.*"
 psycopg2-binary = "==2.*"
 tenacity = "==8.*"
-sqlmodel = "*"
+sqlmodel = "==0.0.*"
 mypy = "*"
 setuptools = "^68.1.2"
 python-dotenv = "^1.0.0"
+pydantic = "*"
+gunicorn = "*"
+uvicorn = "^0.23.2"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
+ipdb = "^0.13.13"
 black = "*"
 isort = "*"
 pytest = "*"
@@ -37,13 +60,7 @@ requests = "*"
 pytest-cov = "*"
 pytest-xdist = "*"
 mypy = "*"
-pydantic = "*"
 pycodestyle = "*"
-
-[tool.poetry.group.dev.dependencies]
-pycodestyle = "^2.11.0"
-uvicorn = "^0.23.2"
-ipdb = "^0.13.13"
 
 [build-system]
 requires = ["poetry-core"]

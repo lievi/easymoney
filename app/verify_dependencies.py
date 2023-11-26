@@ -29,8 +29,8 @@ def verify_dependencies() -> None:
 
 
 def _check_db_connection() -> None:
-    session = next(db_session())
-    session.query(text("SELECT 1"))
+    session = db_session()
+    session.execute(text("SELECT 1"))
 
 
 def main() -> None:

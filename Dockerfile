@@ -1,19 +1,21 @@
-FROM --platform=linux/amd64 tiangolo/uvicorn-gunicorn-fastapi:latest
+FROM python:3.11-slim
 
-WORKDIR /app/
+# use built-in pip to access poetry 
+RUN pip install poetry
 
-# Copy using Pipfile.lock* in case it doesn't exist yet
-COPY Pipfile Pipfile.lock* /app/
+# start installing things with poetry
+COPY pyproject.toml .
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-ansi -n
 
-# Install Pipenv
-RUN pip install pipenv
+COPY ./scripts/start.sh /start.sh
+RUN chmod +x /start.sh
 
-# Allow installing dev dependencies to run tests
-ARG INSTALL_DEV=false
-RUN bash -c "if [ $INSTALL_DEV == 'true' ] ; then pipenv install --system --dev ; else pipenv install --system ; fi"
+COPY ./gunicorn_conf.py /gunicorn_conf.py
 
 COPY . /app
+WORKDIR /app/
 
 ENV PYTHONPATH=/app
 
-CMD ["bash", "/start.sh"]
+CMD ["/start.sh"]

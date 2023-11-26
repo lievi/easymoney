@@ -1,4 +1,5 @@
 import logging
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
@@ -10,18 +11,20 @@ from app.db.sqlmodel import create_db_and_tables
 logging.basicConfig(level=logging.INFO)
 
 logger = logging.getLogger(__name__)
-swagger_config = {
-    "syntaxHighlight.theme": "obsidian"
-}
+swagger_config = {"syntaxHighlight.theme": "obsidian"}
 
-app = FastAPI(title="Easy Money", swagger_ui_parameters=swagger_config)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+    yield
+
+
+app = FastAPI(
+    title="Easy Money", swagger_ui_parameters=swagger_config, lifespan=lifespan
+)
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
-
-
-@app.on_event("startup")
-def on_startup():
-    create_db_and_tables()
 
 
 logger.info("Starting the app")
