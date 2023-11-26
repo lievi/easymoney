@@ -1,30 +1,30 @@
 from abc import ABC, abstractmethod
-from typing import Any, List
 
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session as SqlAlchemySession
+from sqlmodel import Session
 
-from app.domain.expense import Expense, ExpenseCreate
-from app.db.base_crud import CRUDBase
-from app.db.orm.expense import Expense as ExpenseOrm
+from app.db.sqlalchemy.base_crud import CRUDBase
+from app.db.sqlalchemy.orm.expense import Expense as ExpenseOrm
+from app.db.sqlmodel.orm import ExpenseDB
+from app.domain.expense import Expense, ExpenseCreation
 
 
-class AbstractExpenseRepository(ABC):
+class ExpensesRepository(ABC):
     @abstractmethod
-    def create(self, expense: ExpenseCreate) -> Expense:
+    def create(self, expense: ExpenseCreation) -> Expense:
         raise NotImplementedError
 
     @abstractmethod
-    def get(self, id: Any) -> Expense:
+    def get(self, id: int) -> Expense:
         raise NotImplementedError
 
 
-class FakeExpenseRepository(AbstractExpenseRepository):
+class FakeExpenseRepository(ExpensesRepository):
     def __init__(self) -> None:
-        super().__init__()
-        self._expenses: List[Expense] = list()
+        self._expenses: list[Expense] = list()
 
-    def create(self, expense: ExpenseCreate) -> Expense:
-        new_expense = Expense(id=1, **expense.model_dump())
+    def create(self, expense: ExpenseCreation) -> Expense:
+        new_expense = Expense(id=1, **expense.dict())
         self._expenses.append(new_expense)
         return new_expense
 
@@ -33,8 +33,27 @@ class FakeExpenseRepository(AbstractExpenseRepository):
 
 
 class SqlAlchemyExpenseRepository(
-    CRUDBase[ExpenseOrm, Expense], AbstractExpenseRepository
+    CRUDBase[ExpenseOrm, ExpenseCreation], ExpensesRepository
 ):
-    def __init__(self, db: Session):
+    def __init__(self, db: SqlAlchemySession):
         super().__init__(ExpenseOrm, db)
+
     ...
+
+
+class SqlModelExpenseRepository(ExpensesRepository):
+    def __init__(self, session: Session) -> None:
+        self.session = session
+        super().__init__()
+
+    def create(self, expense: ExpenseCreation) -> Expense:
+        expense_db = ExpenseDB.from_orm(expense)
+
+        self.session.add(expense_db)
+        self.session.commit()
+        self.session.refresh(expense_db)
+        return Expense(**expense_db.dict())
+
+    def get(self, id: int) -> Expense | None:
+        expense_db = self.session.get(ExpenseDB, id)
+        return Expense.parse_obj(expense_db) if expense_db else None

@@ -10,6 +10,6 @@ class BaseOrm:
     __name__: str
 
     # Generate the tablename based on the model class name
-    @declared_attr.directive
+    # @declared_attr.directive
     def __tablename__(cls) -> str:
         return cls.__name__.lower()

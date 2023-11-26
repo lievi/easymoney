@@ -3,10 +3,9 @@ from typing import Generator
 import pytest
 from fastapi.testclient import TestClient
 
-from app.services.unit_of_work import SqlAlchemyUnitOfWork
+from app.api.dependencies import get_session
 from app.main import app
-
-from app.db.session import engine
+from app.repositories.expense import SqlModelExpenseRepository
 from app.verify_dependencies import verify_dependencies
 
 
@@ -16,10 +15,17 @@ def client() -> Generator:
         yield client
 
 
-@pytest.fixture
-def uow() -> SqlAlchemyUnitOfWork:
-    return SqlAlchemyUnitOfWork()
-
 @pytest.fixture(scope="session")
 def wait_dependencies() -> None:
     verify_dependencies()
+
+
+@pytest.fixture
+def db_session():
+    return next(get_session())
+
+
+# TODO: how to get this repo dynamically, or use bare sql
+@pytest.fixture
+def expense_repository(db_session):
+    return SqlModelExpenseRepository(session=db_session)

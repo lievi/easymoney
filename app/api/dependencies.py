@@ -1,3 +1,5 @@
-# from typing import Generator
+from app.db.sqlmodel.session import get_session
 
-# from app.infrastructure.db.session import SessionLocal
+
+def db_session():
+    return next(get_session())

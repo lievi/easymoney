@@ -16,7 +16,7 @@ class TestExpenseEntity:
         )
 
         assert isinstance(new_expense, Expense)
-        assert new_expense.model_dump() == expense_payload
+        assert new_expense.dict() == expense_payload
 
     def test_create_expense_without_optional_attr_should_return_expense(
         self, expense_payload: dict
@@ -50,7 +50,7 @@ class TestExpenseEntity:
     def test_expense_to_dict_shoud_return_dict(
         self, expense_entity: Expense
     ) -> None:
-        expense_dict = expense_entity.model_dump()
+        expense_dict = expense_entity.dict()
 
         assert isinstance(expense_dict, dict)
         assert expense_entity.name == expense_dict['name']

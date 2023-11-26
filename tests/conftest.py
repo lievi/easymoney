@@ -1,15 +1,14 @@
-from typing import Dict
-
 import pytest
 
 from app.repositories.expense import (
-    AbstractExpenseRepository, FakeExpenseRepository
+    ExpensesRepository, FakeExpenseRepository
 )
-from app.domain.expense import Expense, ExpenseCreate
+from app.domain.expense import Expense
+from app.api.expenses.schemas import CreateExpenseSchema
 
 
 @pytest.fixture
-def expense_create_payload() -> Dict:
+def expense_create_payload() -> dict:
     return {
         'name': 'fake expense',
         'value': 2.0,
@@ -28,8 +27,8 @@ def expense_entity() -> Expense:
 
 
 @pytest.fixture
-def expense_create_entity() -> ExpenseCreate:
-    return ExpenseCreate(
+def expense_create_entity() -> CreateExpenseSchema:
+    return CreateExpenseSchema(
         name='fake expense',
         value=2.0,
         description='fake description'

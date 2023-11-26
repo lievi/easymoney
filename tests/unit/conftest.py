@@ -1,8 +1,8 @@
 import pytest
 
-from app.services.unit_of_work import FakeUnitOfWork
+from app.repositories.expense import FakeExpenseRepository
 
 
 @pytest.fixture
-def fake_uow() -> FakeUnitOfWork:
-    return FakeUnitOfWork()
+def fake_repository():
+    return FakeExpenseRepository()

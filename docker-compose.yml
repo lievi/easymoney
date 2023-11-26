@@ -12,8 +12,12 @@ services:
             - db
         volumes:
             - .:/app
+        env_file:
+            - .env.docker
     db:
         container_name: db
         image: postgres:latest
         ports:
             - "5432:5432"
+        env_file:
+            - .env.db

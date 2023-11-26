@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, Float, Integer
 
-from app.db.orm.base import BaseOrm
+from .base import BaseOrm
 
 
 class Expense(BaseOrm):
