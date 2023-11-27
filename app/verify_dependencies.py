@@ -9,8 +9,7 @@ from tenacity import (
     wait_fixed,
 )
 
-from app.db.session import SessionLocal
-
+from app.api.dependencies import db_session
 
 max_retries = 10
 wait_seconds = 1
@@ -23,22 +22,22 @@ logger = logging.getLogger(__name__)
     stop=stop_after_attempt(max_retries),
     wait=wait_fixed(wait_seconds),
     before=before_log(logger, logging.INFO),
-    after=after_log(logger, logging.WARN)
+    after=after_log(logger, logging.WARN),
 )
 def verify_dependencies() -> None:
-    try:
-        db = SessionLocal()
-        db.execute(text("SELECT 1"))
-    except Exception as e:
-        logger.error(e)
-        raise e
+    _check_db_connection()
 
 
-def main() -> None:
+def _check_db_connection() -> None:
+    session = db_session()
+    session.exec(text("SELECT 1"))
+
+
+def main() -> None:  # pragma: no cover
     logger.info("Starting dependecies services")
     verify_dependencies()
     logger.info("Services started")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()
