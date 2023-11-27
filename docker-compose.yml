@@ -3,8 +3,6 @@ services:
     web:
         container_name: web
         build:
-            args:
-                INSTALL_DEV: ${INSTALL_DEV-false}
             dockerfile: Dockerfile
         ports:
             - "8000:80"
