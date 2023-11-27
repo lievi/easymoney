@@ -30,14 +30,14 @@ def verify_dependencies() -> None:
 
 def _check_db_connection() -> None:
     session = db_session()
-    session.execute(text("SELECT 1"))
+    session.exec(text("SELECT 1"))
 
 
-def main() -> None:
+def main() -> None:  # pragma: no cover
     logger.info("Starting dependecies services")
     verify_dependencies()
     logger.info("Services started")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()

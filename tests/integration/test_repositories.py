@@ -1,16 +1,16 @@
 from sqlalchemy.orm import sessionmaker
-from app.repositories.expense import SqlAlchemyExpenseRepository
+from app.repositories.expense import SqlModelExpenseRepository
 from app.domain.expense import ExpenseCreation
 
 
-class TestSqlAlchemyExpenseRepository:
+class TestSqlModelExpenseRepository:
     def test_expense_creation(
         self,
         sqlite_session_factory: sessionmaker,
         expense_create_entity: ExpenseCreation,
     ) -> None:
         session = sqlite_session_factory()
-        repo = SqlAlchemyExpenseRepository(db=session)
+        repo = SqlModelExpenseRepository(session=session)
         saved_entity = repo.create(expense_create_entity)
 
         assert saved_entity.name == expense_create_entity.name
@@ -23,7 +23,7 @@ class TestSqlAlchemyExpenseRepository:
         expense_create_entity: ExpenseCreation,
     ) -> None:
         session = sqlite_session_factory()
-        repo = SqlAlchemyExpenseRepository(db=session)
+        repo = SqlModelExpenseRepository(session=session)
         saved_entity = repo.create(expense_create_entity)
         session.commit()
 

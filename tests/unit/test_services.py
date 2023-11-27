@@ -1,9 +1,9 @@
 import pytest
 
-from app.services.exceptions import ExpenseNotFound
-from app.services.expenses import create_expense, get_by_id
 from app.domain.expense import ExpenseCreation
 from app.repositories.expense import FakeExpenseRepository
+from app.services.exceptions import ExpenseNotFound
+from app.services.expenses import create_expense, get_by_id
 
 
 class TestExpenseService:

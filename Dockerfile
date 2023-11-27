@@ -11,7 +11,7 @@ RUN poetry install --no-ansi -n
 COPY ./scripts/start.sh /start.sh
 RUN chmod +x /start.sh
 
-COPY ./gunicorn_conf.py /gunicorn_conf.py
+COPY ./app/gunicorn_conf.py /gunicorn_conf.py
 
 COPY . /app
 WORKDIR /app/

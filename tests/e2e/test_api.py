@@ -55,3 +55,10 @@ class TestExpenseAPI:
         assert expense["name"] == expense_create_payload["name"]
         assert expense["value"] == expense_create_payload["value"]
         assert expense["description"] == expense_create_payload["description"]
+
+
+class TestHealthcheck:
+    def test_should_return_pong(self, client: TestClient):
+        response = client.get(f"{settings.API_V1_STR}/ping")
+        assert response.status_code == 200
+        assert response.json() == "pong"

@@ -6,7 +6,6 @@ from sqlmodel import Session
 
 from app.api.dependencies import db_session
 from app.repositories.expense import (
-    SqlAlchemyExpenseRepository,
     SqlModelExpenseRepository,
 )
 from app.services import expenses as service

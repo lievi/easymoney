@@ -1,10 +1,11 @@
 import pytest
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-from app.repositories.expense import (
-    ExpensesRepository, FakeExpenseRepository
-)
-from app.domain.expense import Expense
 from app.api.expenses.schemas import CreateExpenseSchema
+from app.db.sqlmodel.orm import ExpenseDB
+from app.domain.expense import Expense
+from app.repositories.expense import ExpensesRepository, FakeExpenseRepository
 
 
 @pytest.fixture
@@ -33,3 +34,13 @@ def expense_create_entity() -> CreateExpenseSchema:
         value=2.0,
         description='fake description'
     )
+
+@pytest.fixture
+def in_memory_sqlite_db():
+    engine = create_engine('sqlite:///:memory:')
+    ExpenseDB.metadata.create_all(engine)
+    return engine
+
+@pytest.fixture
+def sqlite_session_factory(in_memory_sqlite_db):
+    yield sessionmaker(bind=in_memory_sqlite_db)

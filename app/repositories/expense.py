@@ -1,10 +1,7 @@
 from abc import ABC, abstractmethod
 
-from sqlalchemy.orm import Session as SqlAlchemySession
 from sqlmodel import Session
 
-from app.db.sqlalchemy.base_crud import CRUDBase
-from app.db.sqlalchemy.orm.expense import Expense as ExpenseOrm
 from app.db.sqlmodel.orm import ExpenseDB
 from app.domain.expense import Expense, ExpenseCreation
 
@@ -30,15 +27,6 @@ class FakeExpenseRepository(ExpensesRepository):
 
     def get(self, id: int) -> Expense:
         return next((e for e in self._expenses if e.id == id), None)
-
-
-class SqlAlchemyExpenseRepository(
-    CRUDBase[ExpenseOrm, ExpenseCreation], ExpensesRepository
-):
-    def __init__(self, db: SqlAlchemySession):
-        super().__init__(ExpenseOrm, db)
-
-    ...
 
 
 class SqlModelExpenseRepository(ExpensesRepository):
