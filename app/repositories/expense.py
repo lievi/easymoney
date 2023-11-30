@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from sqlmodel import Session
 
 from app.db.sqlmodel.orm import ExpenseDB
-from app.domain.expense import Expense, ExpenseCreation
+from app.domain.expense import Expense, ExpenseCreation, ExpenseUpdate
 
 
 class ExpensesRepository(ABC):
@@ -12,7 +12,11 @@ class ExpensesRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def get(self, id: int) -> Expense:
+    def get(self, id: int) -> Expense | None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def update(self, id: int, update_payload: ExpenseUpdate) -> Expense | None:
         raise NotImplementedError
 
 
@@ -25,8 +29,22 @@ class FakeExpenseRepository(ExpensesRepository):
         self._expenses.append(new_expense)
         return new_expense
 
-    def get(self, id: int) -> Expense:
+    def get(self, id: int) -> Expense | None:
         return next((e for e in self._expenses if e.id == id), None)
+
+    def update(self, id: int, update_payload: ExpenseUpdate) -> Expense | None:
+        expense_index = next(
+            (index for index, e in enumerate(self._expenses) if e.id == id),
+            None,
+        )
+
+        if expense_index is None:
+            return None
+
+        for key, value in update_payload.dict().items():
+            setattr(self._expenses[expense_index], key, value)
+
+        return self._expenses[expense_index]
 
 
 class SqlModelExpenseRepository(ExpensesRepository):
@@ -45,3 +63,17 @@ class SqlModelExpenseRepository(ExpensesRepository):
     def get(self, id: int) -> Expense | None:
         expense_db = self.session.get(ExpenseDB, id)
         return Expense.parse_obj(expense_db) if expense_db else None
+
+    def update(self, id: int, update_payload: ExpenseUpdate) -> Expense | None:
+        expense = self.session.get(ExpenseDB, id, with_for_update=True)
+        if not expense:
+            return None
+
+        for key, value in update_payload.dict(exclude_none=True).items():
+            setattr(expense, key, value)
+
+        self.session.add(expense)
+        self.session.commit()
+        self.session.refresh(expense)
+
+        return Expense(**expense.dict())
