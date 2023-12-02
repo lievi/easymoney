@@ -1,4 +1,6 @@
+
 from app.domain.expense import Expense, ExpenseCreation, ExpenseUpdate
+
 from app.repositories.expense import ExpensesRepository
 
 from .exceptions import ExpenseNotFound
@@ -27,3 +29,4 @@ def update_expense(
     if not updated_expense:
         raise ExpenseNotFound
     return updated_expense
+

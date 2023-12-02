@@ -1,6 +1,7 @@
 from pydantic import BaseModel, validator
 
 
+
 class BaseExpense(BaseModel):
     name: str
     description: str | None

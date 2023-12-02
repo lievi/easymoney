@@ -2,6 +2,7 @@ import pytest
 from pydantic import ValidationError
 from sqlalchemy.orm import sessionmaker
 
+
 from app.domain.expense import ExpenseCreation, ExpenseUpdate
 from app.repositories.expense import SqlModelExpenseRepository
 
