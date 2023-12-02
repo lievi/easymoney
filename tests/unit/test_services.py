@@ -1,9 +1,9 @@
 import pytest
 
-from app.domain.expense import ExpenseCreation
+from app.domain.expense import Expense, ExpenseCreation, ExpenseUpdate
 from app.repositories.expense import FakeExpenseRepository
 from app.services.exceptions import ExpenseNotFound
-from app.services.expenses import create_expense, get_by_id
+from app.services.expenses import create_expense, get_by_id, update_expense
 
 
 class TestExpenseService:
@@ -41,3 +41,25 @@ class TestExpenseService:
     ) -> None:
         with pytest.raises(ExpenseNotFound):
             get_by_id(fake_repository, 999)
+
+    def test_update_expense(
+        self, fake_repository: FakeExpenseRepository, expense_entity: Expense
+    ) -> None:
+        fake_repository._expenses.append(expense_entity)
+
+        update_expense_model = ExpenseUpdate(value=10.0)  #  pragma: no cover
+
+        updated_expense = update_expense(
+            fake_repository, expense_entity.id, update_expense_model
+        )
+        assert updated_expense.value == 10.0
+
+    def test_expense_not_found_when_updating(
+        self, fake_repository: FakeExpenseRepository, expense_entity: Expense
+    ) -> None:
+        update_expense_model = ExpenseUpdate(value=10.0)  #  pragma: no cover
+
+        with pytest.raises(ExpenseNotFound):
+            update_expense(
+                fake_repository, expense_entity.id, update_expense_model
+            )
