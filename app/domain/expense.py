@@ -1,7 +1,6 @@
 from pydantic import BaseModel, validator
 
 
-
 class BaseExpense(BaseModel):
     name: str
     description: str | None
@@ -16,7 +15,10 @@ class ExpenseCreation(BaseExpense):
     pass
 
 
-# TODO: put this on the schema
+class ExpenseFullUpdate(BaseExpense):
+    pass
+
+
 class ExpenseUpdate(BaseExpense):
     name: str | None
     value: float | None
