@@ -1,4 +1,4 @@
-from app.domain.expense import Expense, ExpenseCreation
+from app.domain.expense import Expense, ExpenseCreation, ExpenseFullUpdate
 
 
 class BaseExpenseSchema(Expense):
@@ -10,5 +10,10 @@ class ExpenseSchema(BaseExpenseSchema):
 
 
 class CreateExpenseSchema(ExpenseCreation):
+    class Config:
+        from_orm = True
+
+
+class UpdateExpenseSchema(ExpenseFullUpdate):
     class Config:
         from_orm = True

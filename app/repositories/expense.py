@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 from sqlmodel import Session
 
+from app.db.sqlmodel.orm import ExpenseDB
 from app.domain.expense import Expense, ExpenseCreation, ExpenseUpdate
 
 
@@ -12,6 +13,7 @@ class ExpensesRepository(ABC):
 
     @abstractmethod
     def get(self, id: int) -> Expense | None:
+        raise NotImplementedError
 
     @abstractmethod
     def update(self, id: int, update_payload: ExpenseUpdate) -> Expense | None:
