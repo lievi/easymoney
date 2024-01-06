@@ -1,6 +1,6 @@
 import pytest
 
-from app.domain.expense import Expense
+from easymoney.domain.expense import Expense
 
 
 @pytest.fixture

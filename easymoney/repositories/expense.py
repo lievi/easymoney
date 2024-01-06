@@ -2,8 +2,8 @@ from abc import ABC, abstractmethod
 
 from sqlmodel import Session
 
-from app.db.sqlmodel.orm import ExpenseDB
-from app.domain.expense import Expense, ExpenseCreation, ExpenseUpdate
+from easymoney.db.sqlmodel.orm import ExpenseDB
+from easymoney.domain.expense import Expense, ExpenseCreation, ExpenseUpdate
 
 
 class ExpensesRepository(ABC):

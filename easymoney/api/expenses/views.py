@@ -4,12 +4,12 @@ from typing import Any
 from fastapi import APIRouter, Depends
 from sqlmodel import Session
 
-from app.api.dependencies import db_session
-from app.repositories.expense import (
+from easymoney.api.dependencies import db_session
+from easymoney.repositories.expense import (
     SqlModelExpenseRepository,
 )
-from app.services import expenses as service
-from app.services.exceptions import ExpenseNotFound
+from easymoney.services import expenses as service
+from easymoney.services.exceptions import ExpenseNotFound
 
 from .exceptions import ItemNotFound
 from .schemas import CreateExpenseSchema, ExpenseSchema, UpdateExpenseSchema

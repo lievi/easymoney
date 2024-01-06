@@ -1,11 +1,11 @@
 from fastapi.testclient import TestClient
 
-from app.api.dependencies import get_session
-from app.api.expenses.schemas import CreateExpenseSchema, ExpenseSchema
-from app.config import settings
-from app.domain.expense import ExpenseCreation
-from app.repositories.expense import ExpensesRepository
-from app.services.expenses import create_expense
+from easymoney.api.dependencies import get_session
+from easymoney.api.expenses.schemas import CreateExpenseSchema, ExpenseSchema
+from easymoney.config import settings
+from easymoney.domain.expense import ExpenseCreation
+from easymoney.repositories.expense import ExpensesRepository
+from easymoney.services.expenses import create_expense
 
 
 # TODO: check how to check dependencies

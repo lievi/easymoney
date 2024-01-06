@@ -3,8 +3,8 @@ from pydantic import ValidationError
 from sqlalchemy.orm import sessionmaker
 
 
-from app.domain.expense import ExpenseCreation, ExpenseUpdate
-from app.repositories.expense import SqlModelExpenseRepository
+from easymoney.domain.expense import ExpenseCreation, ExpenseUpdate
+from easymoney.repositories.expense import SqlModelExpenseRepository
 
 
 class TestSqlModelExpenseRepository:

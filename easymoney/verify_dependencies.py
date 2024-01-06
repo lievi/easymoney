@@ -9,7 +9,7 @@ from tenacity import (
     wait_fixed,
 )
 
-from app.api.dependencies import db_session
+from easymoney.api.dependencies import db_session
 
 max_retries = 10
 wait_seconds = 1

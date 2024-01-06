@@ -1,7 +1,7 @@
 import pytest
 from pydantic.error_wrappers import ValidationError
 
-from app.domain.expense import Expense
+from easymoney.domain.expense import Expense
 
 
 class TestExpenseEntity:

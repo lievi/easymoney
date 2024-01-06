@@ -3,10 +3,10 @@ from typing import Generator
 import pytest
 from fastapi.testclient import TestClient
 
-from app.api.dependencies import get_session
-from app.main import app
-from app.repositories.expense import SqlModelExpenseRepository
-from app.verify_dependencies import verify_dependencies
+from easymoney.api.dependencies import get_session
+from easymoney.main import app
+from easymoney.repositories.expense import SqlModelExpenseRepository
+from easymoney.verify_dependencies import verify_dependencies
 
 
 @pytest.fixture
