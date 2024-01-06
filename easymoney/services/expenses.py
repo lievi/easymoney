@@ -1,5 +1,5 @@
-from app.domain.expense import Expense, ExpenseCreation, ExpenseUpdate
-from app.repositories.expense import ExpensesRepository
+from easymoney.domain.expense import Expense, ExpenseCreation, ExpenseUpdate
+from easymoney.repositories.expense import ExpensesRepository
 
 from .exceptions import ExpenseNotFound
 

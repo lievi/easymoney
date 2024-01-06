@@ -1,9 +1,9 @@
 import pytest
 
-from app.domain.expense import Expense, ExpenseCreation, ExpenseUpdate
-from app.repositories.expense import FakeExpenseRepository
-from app.services.exceptions import ExpenseNotFound
-from app.services.expenses import create_expense, get_by_id, update_expense
+from easymoney.domain.expense import Expense, ExpenseCreation, ExpenseUpdate
+from easymoney.repositories.expense import FakeExpenseRepository
+from easymoney.services.exceptions import ExpenseNotFound
+from easymoney.services.expenses import create_expense, get_by_id, update_expense
 
 
 class TestExpenseService:

@@ -1,4 +1,4 @@
-from app.domain.expense import Expense, ExpenseCreation, ExpenseFullUpdate
+from easymoney.domain.expense import Expense, ExpenseCreation, ExpenseFullUpdate
 
 
 class BaseExpenseSchema(Expense):

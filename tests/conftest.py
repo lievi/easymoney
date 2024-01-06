@@ -2,10 +2,10 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.api.expenses.schemas import CreateExpenseSchema
-from app.db.sqlmodel.orm import ExpenseDB
-from app.domain.expense import Expense
-from app.repositories.expense import ExpensesRepository, FakeExpenseRepository
+from easymoney.api.expenses.schemas import CreateExpenseSchema
+from easymoney.db.sqlmodel.orm import ExpenseDB
+from easymoney.domain.expense import Expense
+from easymoney.repositories.expense import ExpensesRepository, FakeExpenseRepository
 
 
 @pytest.fixture

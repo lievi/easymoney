@@ -1,6 +1,6 @@
 import pytest
 
-from app.repositories.expense import FakeExpenseRepository
+from easymoney.repositories.expense import FakeExpenseRepository
 
 
 @pytest.fixture

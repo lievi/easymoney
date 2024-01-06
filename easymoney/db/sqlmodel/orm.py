@@ -1,6 +1,6 @@
 from sqlmodel import Field, SQLModel
 
-from app.domain.expense import ExpenseCreation
+from easymoney.domain.expense import ExpenseCreation
 
 
 class ExpenseDB(SQLModel, ExpenseCreation, table=True):
